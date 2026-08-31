@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: monitor-agua-demo-v2
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: DEMO_USER
+        sync: false
+      - key: DEMO_PASSWORD
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true

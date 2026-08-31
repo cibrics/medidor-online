@@ -1,0 +1,15 @@
+IMÁGENES DEL PORTAL
+
+Pon aquí tus archivos, por ejemplo:
+logo.png
+foto-medidor.jpg
+foto-predio.jpg
+
+En templates/index.html puedes mostrar una imagen con:
+<img src="/static/foto-predio.jpg" alt="Predio">
+
+Para reemplazar el logo:
+cambia src="/static/logo-demo.svg"
+por src="/static/logo.png"
+
+Haz el mismo cambio en templates/login.html.
