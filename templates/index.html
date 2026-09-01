@@ -347,27 +347,29 @@ main{
 
     <div class="statusbox">
 
-      <div class="statusline">
+  <div class="statusline">
 
-        <span class="dot"></span>
+    <span class="dot" id="statusDot"></span>
 
-        <span>Esperando datos...</span>
+    <span id="connectionStatus">
+      Esperando datos...
+    </span>
 
-      </div>
+  </div>
 
-      <div class="sub">
+  <div class="sub">
 
-        Última comunicación:
-        <b id="lastSeen">—</b>
+    Última comunicación:
+    <b id="lastSeen">—</b>
 
-        <br>
+    <br>
 
-        TEXTO_ESTADO_DATO:
-        <b>TEXTO_ESTADO_ULTIMO_VALOR_CONOCIDO</b>
+    Estado del dato:
+    <b id="dataStatus">—</b>
 
-      </div>
+  </div>
 
-    </div>
+</div>
 
   </section>
 
@@ -576,7 +578,109 @@ function dateCL(v){
 /* ---------------------------------------------------------------
    Carga los datos del dispositivo
    --------------------------------------------------------------- */
+function updateStatus(lastSeen){
 
+  const connectionStatus =
+    document.getElementById("connectionStatus");
+
+  const dataStatus =
+    document.getElementById("dataStatus");
+
+  const statusDot =
+    document.getElementById("statusDot");
+
+
+  /* Si nunca hemos recibido comunicación */
+
+  if(!lastSeen){
+
+    connectionStatus.textContent =
+      "Desconectado";
+
+    dataStatus.textContent =
+      "Sin datos";
+
+    statusDot.style.background =
+      "#c94b45";
+
+    return;
+
+  }
+
+
+  const now =
+    new Date();
+
+  const last =
+    new Date(lastSeen);
+
+  const diffMilliseconds =
+    now - last;
+
+const diffMinutes =
+  Math.max(0, diffMilliseconds / 60000);
+
+
+  /* ============================================================
+     ESTADO DE COMUNICACIÓN
+
+     0 a <16 minutos:
+     CONECTADO
+
+     16 minutos o más:
+     DESCONECTADO
+     ============================================================ */
+
+  if(diffMinutes < 16){
+
+    connectionStatus.textContent =
+      "Conectado";
+
+    statusDot.style.background =
+      "#24876e";
+
+  }else{
+
+    connectionStatus.textContent =
+      "Desconectado";
+
+    statusDot.style.background =
+      "#c94b45";
+
+  }
+
+
+  /* ============================================================
+     ESTADO DEL DATO
+
+     Menos de 6 minutos:
+     DATO ACTUALIZADO
+
+     Desde 6 minutos hasta menos de 16:
+     ÚLTIMO VALOR CONOCIDO
+
+     Desde 16 minutos:
+     SIN DATOS
+     ============================================================ */
+
+  if(diffMinutes < 6){
+
+    dataStatus.textContent =
+      "Dato actualizado";
+
+  }else if(diffMinutes < 16){
+
+    dataStatus.textContent =
+      "Último valor conocido";
+
+  }else{
+
+    dataStatus.textContent =
+      "Sin datos";
+
+  }
+
+}
 async function load(){
 
   const r = await fetch("/api/devices");
@@ -593,9 +697,10 @@ async function load(){
     ds.find(d => d.device_name === "PUL 1") || ds[0];
 
 
-  if(!pul) return;
-
-
+if(!pul){
+  updateStatus(null);
+  return;
+}
 
   /* ==============================================================
      AGUA
@@ -664,6 +769,7 @@ async function load(){
   document.getElementById("lastSeen").textContent =
     dateCL(pul.last_seen);
 
+  updateStatus(pul.last_seen);
 
 
   /* ==============================================================
