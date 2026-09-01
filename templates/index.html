@@ -727,8 +727,23 @@ if(!pul){
 
     /* Tarjeta de agua */
 
-    document.getElementById("waterCard").textContent =
-      m3 + " m³";
+if(pul.water_24h_m3 != null){
+
+  document.getElementById("waterCard").textContent =
+    pul.water_24h_m3.toLocaleString(
+      "es-CL",
+      {
+        minimumFractionDigits:1,
+        maximumFractionDigits:3
+      }
+    ) + " m³";
+
+}else{
+
+  document.getElementById("waterCard").textContent =
+    "Sin historial suficiente";
+
+}
 
   }
 
