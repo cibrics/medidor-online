@@ -1,37 +1,233 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- EDITAR ESTE TEXTO -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- EDITAR: título que aparece en la pestaña del navegador -->
 <title>TEXTO_LOGIN_TITULO_PESTAÑA</title>
+
 <style>
-:root{--bg:#f5f8fb;--ink:#17324a;--muted:#718397;--line:#dce6ee;--accent:#1e88e5}
-*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);display:grid;place-items:center;min-height:100vh}
-.card{width:min(420px,92vw);background:white;border:1px solid var(--line);border-radius:20px;padding:32px;box-shadow:0 16px 45px rgba(35,65,95,.10)}
-.brand{display:flex;align-items:center;gap:12px;margin-bottom:26px}.logo{width:42px;height:42px;object-fit:contain}
-h1{font-size:25px;margin:0 0 7px}.muted{color:var(--muted);font-size:14px;margin-bottom:20px}
-label{font-size:13px;color:var(--muted);display:block;margin:13px 0 6px}
-input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font-size:15px}
-button{width:100%;padding:12px;margin-top:18px;border:0;border-radius:10px;background:var(--accent);color:white;font-weight:700;font-size:15px;cursor:pointer}
-.error{background:#fff1f0;color:#a23a36;padding:10px;border-radius:9px;font-size:13px;margin-bottom:12px}
-.note{font-size:11px;color:#94a2b1;margin-top:18px;text-align:center}
-</style></head>
-<body><div class="card">
-<!-- EDITAR: logo e identificación -->
-<div class="brand"><img class="logo" src="/static/logo-demo.svg" alt="Logo"><strong>TEXTO_LOGIN_NOMBRE_PRODUCTO</strong></div>
-<!-- EDITAR -->
-<h1>TEXTO_LOGIN_ENCABEZADO</h1>
-<!-- EDITAR -->
-<div class="muted">TEXTO_LOGIN_DESCRIPCION</div>
-{% if error %}<div class="error">{{ error }}</div>{% endif %}
-<form method="post">
-<!-- EDITAR -->
-<label>TEXTO_LOGIN_ETIQUETA_USUARIO</label><input name="username" autocomplete="username" required>
-<!-- EDITAR -->
-<label>TEXTO_LOGIN_ETIQUETA_PASSWORD</label><input name="password" type="password" autocomplete="current-password" required>
-<!-- EDITAR -->
-<button>TEXTO_LOGIN_BOTON</button>
-</form>
-<!-- EDITAR -->
-<div class="note">TEXTO_LOGIN_NOTA_PIE</div>
-</div></body></html>
+
+:root{
+  --bg:#f5f8fb;
+  --ink:#17324a;
+  --muted:#718397;
+  --line:#dce6ee;
+  --accent:#1e88e5
+}
+
+*{
+  box-sizing:border-box
+}
+
+body{
+  margin:0;
+  font-family:Segoe UI,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  display:grid;
+  place-items:center;
+  min-height:100vh
+}
+
+.card{
+  width:min(420px,92vw);
+  background:white;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:32px;
+  box-shadow:0 16px 45px rgba(35,65,95,.10)
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:26px
+}
+
+.logo{
+  width:42px;
+  height:42px;
+  object-fit:contain
+}
+
+h1{
+  font-size:25px;
+  margin:0 0 7px
+}
+
+.muted{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:20px
+}
+
+label{
+  font-size:13px;
+  color:var(--muted);
+  display:block;
+  margin:13px 0 6px
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  font-size:15px
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:18px;
+  border:0;
+  border-radius:10px;
+  background:var(--accent);
+  color:white;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer
+}
+
+.error{
+  background:#fff1f0;
+  color:#a23a36;
+  padding:10px;
+  border-radius:9px;
+  font-size:13px;
+  margin-bottom:12px
+}
+
+.note{
+  font-size:11px;
+  color:#94a2b1;
+  margin-top:18px;
+  text-align:center
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="card">
+
+
+  <!-- ============================================================
+       LOGO
+       Se eliminó el nombre del producto.
+       En esta sección aparecerá únicamente el logo.
+
+       Para cambiarlo, reemplaza logo-demo.svg por el nombre
+       del archivo que tengas dentro de la carpeta /static
+       ============================================================ -->
+
+  <div class="brand">
+
+    <img
+      class="logo"
+      src="/static/logo-demo.svg"
+      alt="Logo"
+    >
+
+  </div>
+
+
+  <!-- ============================================================
+       TÍTULO PRINCIPAL DEL LOGIN
+       ============================================================ -->
+
+  <h1>
+    Flow Control-Las Añañucas
+  </h1>
+
+
+  <!-- ============================================================
+       DESCRIPCIÓN
+       ============================================================ -->
+
+  <div class="muted">
+    Monitoreo Remoto Medidores de Agua
+  </div>
+
+
+  <!-- ============================================================
+       MENSAJE DE ERROR
+       Se muestra automáticamente si usuario o contraseña
+       son incorrectos.
+       ============================================================ -->
+
+  {% if error %}
+
+    <div class="error">
+      {{ error }}
+    </div>
+
+  {% endif %}
+
+
+  <!-- ============================================================
+       FORMULARIO DE ACCESO
+       ============================================================ -->
+
+  <form method="post">
+
+
+    <!-- USUARIO -->
+
+    <label>
+      USUARIO
+    </label>
+
+    <input
+      name="username"
+      autocomplete="username"
+      required
+    >
+
+
+    <!-- CONTRASEÑA -->
+
+    <label>
+      CONTRASEÑA
+    </label>
+
+    <input
+      name="password"
+      type="password"
+      autocomplete="current-password"
+      required
+    >
+
+
+    <!-- BOTÓN -->
+
+    <button>
+      INGRESAR
+    </button>
+
+
+  </form>
+
+
+  <!-- ============================================================
+       PIE DEL LOGIN
+       ============================================================ -->
+
+  <div class="note">
+    Desarrollado por BRICS21
+  </div>
+
+
+</div>
+
+</body>
+
+</html>
