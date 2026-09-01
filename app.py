@@ -1,9 +1,23 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for, session
+from flask import (
+    Flask,
+    request,
+    jsonify,
+    render_template,
+    redirect,
+    url_for,
+    session
+)
+
 import sqlite3
 import json
 import os
+
 from datetime import datetime, timezone, timedelta
 
+
+# ================================================================
+# CONFIGURACIÓN GENERAL
+# ================================================================
 
 app = Flask(__name__)
 
@@ -14,15 +28,25 @@ app.secret_key = os.environ.get(
 
 DB = os.environ.get(
     "DB_PATH",
-    os.path.join(os.path.dirname(__file__), "iot.db")
+    os.path.join(
+        os.path.dirname(__file__),
+        "iot.db"
+    )
 )
 
-DEMO_USER = os.environ.get("DEMO_USER", "demo")
-DEMO_PASSWORD = os.environ.get("DEMO_PASSWORD", "demo123")
+DEMO_USER = os.environ.get(
+    "DEMO_USER",
+    "demo"
+)
+
+DEMO_PASSWORD = os.environ.get(
+    "DEMO_PASSWORD",
+    "demo123"
+)
 
 
 # ================================================================
-# CONEXIÓN A BASE DE DATOS
+# BASE DE DATOS
 # ================================================================
 
 def db():
@@ -34,9 +58,8 @@ def db():
     return con
 
 
-
 # ================================================================
-# CREACIÓN DE TABLA
+# CREAR TABLA
 # ================================================================
 
 def init_db():
@@ -44,41 +67,40 @@ def init_db():
     con = db()
 
     con.execute("""
-    CREATE TABLE IF NOT EXISTS readings(
+        CREATE TABLE IF NOT EXISTS readings (
 
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-        ts TEXT NOT NULL,
+            ts TEXT NOT NULL,
 
-        application_name TEXT,
+            application_name TEXT,
 
-        device_name TEXT,
+            device_name TEXT,
 
-        dev_eui TEXT,
+            dev_eui TEXT,
 
-        device_profile_name TEXT,
+            device_profile_name TEXT,
 
-        temperature REAL,
+            temperature REAL,
 
-        humidity REAL,
+            humidity REAL,
 
-        water REAL,
+            water REAL,
 
-        pulse_conv REAL,
+            pulse_conv REAL,
 
-        water_conv REAL,
+            water_conv REAL,
 
-        battery REAL,
+            battery REAL,
 
-        rssi REAL,
+            rssi REAL,
 
-        snr REAL,
+            snr REAL,
 
-        gateway_id TEXT,
+            gateway_id TEXT,
 
-        raw_json TEXT
-
-    )
+            raw_json TEXT
+        )
     """)
 
     con.commit()
@@ -86,9 +108,8 @@ def init_db():
     con.close()
 
 
-
 # ================================================================
-# GUARDAR DATOS RECIBIDOS DESDE CHIRPSTACK
+# GUARDAR PAYLOAD RECIBIDO DESDE CHIRPSTACK
 # ================================================================
 
 def insert_payload(payload):
@@ -149,7 +170,7 @@ def insert_payload(payload):
             json.dumps(
                 payload,
                 ensure_ascii=False
-            ),
+            )
     }
 
 
@@ -157,58 +178,72 @@ def insert_payload(payload):
 
 
     con.execute("""
-    INSERT INTO readings(
+        INSERT INTO readings (
 
-        ts,
-        application_name,
-        device_name,
-        dev_eui,
-        device_profile_name,
+            ts,
 
-        temperature,
-        humidity,
-        water,
+            application_name,
 
-        pulse_conv,
-        water_conv,
+            device_name,
 
-        battery,
+            dev_eui,
 
-        rssi,
-        snr,
+            device_profile_name,
 
-        gateway_id,
+            temperature,
 
-        raw_json
+            humidity,
 
-    )
+            water,
 
-    VALUES(
+            pulse_conv,
 
-        :ts,
-        :application_name,
-        :device_name,
-        :dev_eui,
-        :device_profile_name,
+            water_conv,
 
-        :temperature,
-        :humidity,
-        :water,
+            battery,
 
-        :pulse_conv,
-        :water_conv,
+            rssi,
 
-        :battery,
+            snr,
 
-        :rssi,
-        :snr,
+            gateway_id,
 
-        :gateway_id,
+            raw_json
 
-        :raw_json
+        )
 
-    )
+        VALUES (
 
+            :ts,
+
+            :application_name,
+
+            :device_name,
+
+            :dev_eui,
+
+            :device_profile_name,
+
+            :temperature,
+
+            :humidity,
+
+            :water,
+
+            :pulse_conv,
+
+            :water_conv,
+
+            :battery,
+
+            :rssi,
+
+            :snr,
+
+            :gateway_id,
+
+            :raw_json
+        )
     """, row)
 
 
@@ -217,25 +252,24 @@ def insert_payload(payload):
     con.close()
 
 
-
 # ================================================================
-# DATOS DEMOSTRATIVOS
+# DATOS DEMO
 #
-# Sólo se crean si la base de datos está completamente vacía.
+# Sólo se crean si la base está completamente vacía.
 # ================================================================
 
 def seed_demo():
 
     con = db()
 
-    n = con.execute(
-        "SELECT COUNT(*) n FROM readings"
-    ).fetchone()["n"]
+    row = con.execute(
+        "SELECT COUNT(*) AS n FROM readings"
+    ).fetchone()
 
     con.close()
 
 
-    if n:
+    if row["n"] > 0:
 
         return
 
@@ -266,11 +300,14 @@ def seed_demo():
 
         "object": {
 
-            "pulse_conv": 1,
+            "pulse_conv":
+                1,
 
-            "water_conv": 100,
+            "water_conv":
+                100,
 
-            "water": 480700
+            "water":
+                480700
         },
 
         "rxInfo": [{
@@ -283,9 +320,7 @@ def seed_demo():
 
             "snr":
                 -13.8
-
         }]
-
     })
 
 
@@ -335,11 +370,8 @@ def seed_demo():
 
             "snr":
                 -15.2
-
         }]
-
     })
-
 
 
 # ================================================================
@@ -348,7 +380,6 @@ def seed_demo():
 # ChirpStack debe enviar los POST a:
 #
 # https://TU-DOMINIO.onrender.com/webhook
-#
 # ================================================================
 
 @app.route(
@@ -384,7 +415,6 @@ def webhook():
     })
 
 
-
 # ================================================================
 # LOGIN
 # ================================================================
@@ -398,14 +428,19 @@ def login():
 
     if request.method == "POST":
 
+        username = request.form.get(
+            "username"
+        )
+
+        password = request.form.get(
+            "password"
+        )
+
+
         if (
-            request.form.get("username")
-            == DEMO_USER
-
+            username == DEMO_USER
             and
-
-            request.form.get("password")
-            == DEMO_PASSWORD
+            password == DEMO_PASSWORD
         ):
 
             session["auth"] = True
@@ -421,14 +456,12 @@ def login():
 
             error=
             "Usuario o contraseña incorrectos."
-
         )
 
 
     return render_template(
         "login.html"
     )
-
 
 
 # ================================================================
@@ -446,9 +479,8 @@ def logout():
     )
 
 
-
 # ================================================================
-# PÁGINA PRINCIPAL
+# DASHBOARD
 # ================================================================
 
 @app.route("/")
@@ -467,12 +499,12 @@ def home():
     )
 
 
-
 # ================================================================
 # ÚLTIMO VALOR NO NULO
 #
-# Permite conservar, por ejemplo, la última temperatura aunque
-# el siguiente uplink sólo contenga agua.
+# Ejemplo:
+# si un uplink trae sólo temperatura y otro trae agua,
+# esta función permite conservar el último valor válido de cada uno.
 # ================================================================
 
 def latest_non_null(
@@ -485,13 +517,13 @@ def latest_non_null(
 
         f"""
         SELECT
-            {field} value,
+            {field} AS value,
             ts
 
         FROM readings
 
         WHERE
-            dev_eui=?
+            dev_eui = ?
             AND {field} IS NOT NULL
 
         ORDER BY id DESC
@@ -504,20 +536,19 @@ def latest_non_null(
     ).fetchone()
 
 
+    if not row:
+
+        return None, None
+
+
     return (
-
-        (row["value"], row["ts"])
-
-        if row
-
-        else (None, None)
-
+        row["value"],
+        row["ts"]
     )
 
 
-
 # ================================================================
-# CONVERSIÓN SEGURA DE FECHA
+# CONVERSIÓN DE FECHA
 # ================================================================
 
 def parse_datetime(value):
@@ -536,24 +567,24 @@ def parse_datetime(value):
             )
         )
 
-    except Exception:
+    except (ValueError, TypeError):
 
         return None
-
 
 
 # ================================================================
 # CONSUMO ÚLTIMAS 24 HORAS
 #
-# El sensor entrega un contador acumulado.
+# El EM300-DI entrega un valor acumulado de agua.
 #
-# Esta función calcula:
+# Cálculo:
 #
-# lectura actual
+# lectura acumulada actual
 # -
-# lectura aproximadamente 24 horas atrás
+# lectura acumulada cercana a 24 horas antes
 #
-# El resultado se entrega en m³.
+# Resultado:
+# consumo de agua de las últimas 24 horas en m³
 # ================================================================
 
 def calculate_water_24h(
@@ -562,7 +593,7 @@ def calculate_water_24h(
 ):
 
     # ------------------------------------------------------------
-    # Última lectura válida de agua
+    # Obtener última lectura válida de agua
     # ------------------------------------------------------------
 
     latest = con.execute("""
@@ -574,14 +605,18 @@ def calculate_water_24h(
         FROM readings
 
         WHERE
-            dev_eui=?
+            dev_eui = ?
             AND water IS NOT NULL
 
         ORDER BY id DESC
 
         LIMIT 1
 
-    """, (dev_eui,)).fetchone()
+    """, (
+
+        dev_eui,
+
+    )).fetchone()
 
 
     if not latest:
@@ -594,7 +629,7 @@ def calculate_water_24h(
     )
 
 
-    if not latest_time:
+    if latest_time is None:
 
         return None
 
@@ -611,34 +646,41 @@ def calculate_water_24h(
 
 
     # ------------------------------------------------------------
-    # Buscamos todas las lecturas anteriores de agua.
-    #
-    # Elegimos la lectura temporalmente más cercana a 24 horas
-    # antes de la lectura actual.
+    # Recuperar lecturas anteriores
     # ------------------------------------------------------------
 
-rows = con.execute("""
+    rows = con.execute("""
 
-    SELECT
-        water,
-        ts
+        SELECT
+            water,
+            ts
 
-    FROM readings
+        FROM readings
 
-    WHERE
-        dev_eui=?
-        AND water IS NOT NULL
-        AND ts != ?
+        WHERE
+            dev_eui = ?
+            AND water IS NOT NULL
+            AND ts != ?
 
-    ORDER BY id DESC
+        ORDER BY id DESC
 
-""", (
+    """, (
 
-    dev_eui,
-    latest["ts"]
+        dev_eui,
+        latest["ts"]
 
-)).fetchall()
+    )).fetchall()
 
+
+    if not rows:
+
+        return None
+
+
+    # ------------------------------------------------------------
+    # Buscar la lectura temporalmente más cercana
+    # a exactamente 24 horas atrás.
+    # ------------------------------------------------------------
 
     best_row = None
 
@@ -652,22 +694,33 @@ rows = con.execute("""
         )
 
 
-        if not row_time:
+        if row_time is None:
+
+            continue
+
+
+        # Sólo consideramos lecturas anteriores
+        # a la lectura actual.
+
+        if row_time >= latest_time:
 
             continue
 
 
         difference = abs(
+
             (
                 row_time
                 - target_time
             ).total_seconds()
+
         )
 
 
         if (
             best_difference is None
-            or difference < best_difference
+            or
+            difference < best_difference
         ):
 
             best_row = row
@@ -675,24 +728,28 @@ rows = con.execute("""
             best_difference = difference
 
 
-    if not best_row:
+    if best_row is None:
 
         return None
 
-
-    # ------------------------------------------------------------
-    # Para evitar calcular "24 horas" con dos lecturas que sólo
-    # están separadas por minutos u horas, exigimos que exista
-    # suficiente historial.
-    #
-    # Aceptamos una lectura de referencia ubicada entre
-    # 20 y 28 horas respecto de la lectura actual.
-    # ------------------------------------------------------------
 
     previous_time = parse_datetime(
         best_row["ts"]
     )
 
+
+    if previous_time is None:
+
+        return None
+
+
+    # ------------------------------------------------------------
+    # Validar que realmente exista aproximadamente
+    # un día de historial.
+    #
+    # Aceptamos una lectura ubicada entre
+    # 20 y 28 horas antes de la lectura actual.
+    # ------------------------------------------------------------
 
     elapsed_hours = (
 
@@ -704,7 +761,8 @@ rows = con.execute("""
 
     if (
         elapsed_hours < 20
-        or elapsed_hours > 28
+        or
+        elapsed_hours > 28
     ):
 
         return None
@@ -717,11 +775,19 @@ rows = con.execute("""
 
     if (
         current_water is None
-        or previous_water is None
+        or
+        previous_water is None
     ):
 
         return None
 
+
+    # ------------------------------------------------------------
+    # Diferencia entre lecturas
+    #
+    # El valor water que estamos recibiendo está siendo interpretado
+    # en litros. Por eso dividimos por 1000 para entregar m³.
+    # ------------------------------------------------------------
 
     consumption_liters = (
         current_water
@@ -729,8 +795,10 @@ rows = con.execute("""
     )
 
 
-    # Si el contador se reinició o llegó un dato inválido,
-    # no mostramos consumo negativo.
+    # ------------------------------------------------------------
+    # Protección frente a reinicios del contador
+    # o valores inconsistentes.
+    # ------------------------------------------------------------
 
     if consumption_liters < 0:
 
@@ -738,7 +806,8 @@ rows = con.execute("""
 
 
     consumption_m3 = (
-        consumption_liters / 1000
+        consumption_liters
+        / 1000
     )
 
 
@@ -748,9 +817,8 @@ rows = con.execute("""
     )
 
 
-
 # ================================================================
-# API DISPOSITIVOS
+# API DE DISPOSITIVOS
 # ================================================================
 
 @app.route("/api/devices")
@@ -760,19 +828,25 @@ def devices():
     if session.get("auth") is not True:
 
         return jsonify({
+
             "error":
                 "unauthorized"
+
         }), 401
 
 
     con = db()
 
 
+    # ------------------------------------------------------------
+    # Obtener dispositivos conocidos
+    # ------------------------------------------------------------
+
     devs = con.execute("""
 
         SELECT
             dev_eui,
-            MAX(id) max_id
+            MAX(id) AS max_id
 
         FROM readings
 
@@ -784,6 +858,10 @@ def devices():
 
     """).fetchall()
 
+
+    # ------------------------------------------------------------
+    # Campos cuyo último valor válido queremos conservar
+    # ------------------------------------------------------------
 
     fields = [
 
@@ -804,29 +882,36 @@ def devices():
         "snr",
 
         "gateway_id"
-
     ]
 
 
     out = []
 
 
+    # ------------------------------------------------------------
+    # Construir respuesta de cada dispositivo
+    # ------------------------------------------------------------
+
     for d in devs:
 
+        meta = con.execute("""
 
-        meta = con.execute(
-
-            """
             SELECT *
 
             FROM readings
 
-            WHERE id=?
-            """,
+            WHERE id = ?
 
-            (d["max_id"],)
+        """, (
 
-        ).fetchone()
+            d["max_id"],
+
+        )).fetchone()
+
+
+        if not meta:
+
+            continue
 
 
         item = {
@@ -845,7 +930,6 @@ def devices():
 
             "last_seen":
                 meta["ts"]
-
         }
 
 
@@ -853,39 +937,54 @@ def devices():
         # Último valor válido de cada variable
         # --------------------------------------------------------
 
-        for f in fields:
+        for field in fields:
 
-            (
-                item[f],
-                item[f + "_ts"]
-
-            ) = latest_non_null(
+            value, value_ts = latest_non_null(
 
                 con,
+
                 d["dev_eui"],
-                f
+
+                field
             )
 
 
+            item[field] = value
+
+            item[
+                field + "_ts"
+            ] = value_ts
+
+
         # --------------------------------------------------------
-        # Lectura acumulada en m³
+        # Lectura acumulada total en m³
         # --------------------------------------------------------
 
         if item["water"] is not None:
 
-            item["water_m3"] = (
-                item["water"] / 1000
+            item["water_m3"] = round(
+
+                item["water"]
+                / 1000,
+
+                3
             )
+
+        else:
+
+            item["water_m3"] = None
 
 
         # --------------------------------------------------------
-        # NUEVO:
-        # consumo real de las últimas 24 horas
+        # Consumo calculado últimas 24 horas
         # --------------------------------------------------------
 
         item["water_24h_m3"] = (
+
             calculate_water_24h(
+
                 con,
+
                 d["dev_eui"]
             )
         )
@@ -900,7 +999,6 @@ def devices():
     return jsonify(out)
 
 
-
 # ================================================================
 # HEALTH CHECK
 # ================================================================
@@ -910,9 +1008,11 @@ def devices():
 def health():
 
     return jsonify({
-        "ok": True
-    })
 
+        "ok":
+            True
+
+    })
 
 
 # ================================================================
@@ -924,7 +1024,6 @@ init_db()
 seed_demo()
 
 
-
 # ================================================================
 # EJECUCIÓN LOCAL
 # ================================================================
@@ -933,15 +1032,17 @@ if __name__ == "__main__":
 
     app.run(
 
-        host="0.0.0.0",
+        host=
+            "0.0.0.0",
 
-        port=int(
-            os.environ.get(
-                "PORT",
-                5000
-            )
-        ),
+        port=
+            int(
+                os.environ.get(
+                    "PORT",
+                    5000
+                )
+            ),
 
-        debug=True
-
+        debug=
+            True
     )
