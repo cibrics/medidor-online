@@ -1,179 +1,757 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<!-- EDITAR -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<!-- EDITAR: Título que aparece en la pestaña del navegador -->
 <title>TEXTO_PORTAL_TITULO_PESTAÑA</title>
+
 <style>
-:root{--bg:#f5f8fb;--card:#fff;--ink:#17324a;--muted:#718397;--line:#dce6ee;--accent:#1e88e5;--danger:#c94b45;--shadow:0 10px 30px rgba(35,65,95,.08)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif}
-.topbar{height:74px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px}
-.brand{display:flex;align-items:center;gap:12px;font-weight:800}.logo{width:42px;height:42px;object-fit:contain}.user{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:14px}.user a{color:var(--muted);text-decoration:none}
-main{padding:30px 34px 44px;max-width:1380px;margin:0 auto}.heading{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.heading h1{margin:0 0 6px;font-size:28px}.heading p{margin:0;color:var(--muted)}
-.pill{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;color:var(--muted)}
-.hero{background:linear-gradient(120deg,#fff,#f7fbfe);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.45fr .8fr;gap:24px;margin-bottom:18px}
-.eyebrow,.label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}.meter-name{font-size:20px;font-weight:800;margin:8px 0 16px}.big{font-size:58px;font-weight:850;letter-spacing:-.04em}.big small{font-size:22px;color:var(--muted)}
-.caption,.sub{color:var(--muted);font-size:13px;margin-top:8px}.statusbox{border-left:1px solid var(--line);padding-left:24px;display:flex;flex-direction:column;justify-content:center}.statusline{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;margin-bottom:8px}.dot{width:11px;height:11px;border-radius:50%;background:var(--danger)}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:18px}.grid2{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}.value{font-size:30px;font-weight:800;margin-top:7px}
-.device{padding:13px 0;border-bottom:1px solid var(--line)}.device:last-child{border:0}.device b{font-size:14px}.device .meta{font-size:12px;color:var(--muted);margin-top:4px}
-.alert{border:1px solid #f0d8d5;background:#fff8f7;border-radius:12px;padding:14px;margin-top:12px}.alert b{color:var(--danger)}.alert p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
-.foot{font-size:11px;color:#8b9aab;margin-top:14px}
-@media(max-width:900px){main{padding:22px 18px}.hero,.grid2{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}.statusbox{border-left:0;border-top:1px solid var(--line);padding:18px 0 0}}
-</style></head>
+:root{
+  --bg:#f5f8fb;
+  --card:#fff;
+  --ink:#17324a;
+  --muted:#718397;
+  --line:#dce6ee;
+  --accent:#1e88e5;
+  --danger:#c94b45;
+  --shadow:0 10px 30px rgba(35,65,95,.08)
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,Segoe UI,Arial,sans-serif
+}
+
+.topbar{
+  height:74px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 34px
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:800
+}
+
+.logo{
+  width:42px;
+  height:42px;
+  object-fit:contain
+}
+
+.user{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  color:var(--muted);
+  font-size:14px
+}
+
+.user a{
+  color:var(--muted);
+  text-decoration:none
+}
+
+main{
+  padding:30px 34px 44px;
+  max-width:1380px;
+  margin:0 auto
+}
+
+.heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:20px
+}
+
+.heading h1{
+  margin:0 0 6px;
+  font-size:28px
+}
+
+.heading p{
+  margin:0;
+  color:var(--muted)
+}
+
+.pill{
+  padding:8px 12px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid var(--line);
+  font-size:13px;
+  color:var(--muted)
+}
+
+.hero{
+  background:linear-gradient(120deg,#fff,#f7fbfe);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:26px;
+  box-shadow:var(--shadow);
+  display:grid;
+  grid-template-columns:1.45fr .8fr;
+  gap:24px;
+  margin-bottom:18px
+}
+
+.eyebrow,
+.label{
+  font-size:12px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.09em
+}
+
+.meter-name{
+  font-size:20px;
+  font-weight:800;
+  margin:8px 0 16px
+}
+
+.big{
+  font-size:58px;
+  font-weight:850;
+  letter-spacing:-.04em
+}
+
+.big small{
+  font-size:22px;
+  color:var(--muted)
+}
+
+.caption,
+.sub{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:8px
+}
+
+.statusbox{
+  border-left:1px solid var(--line);
+  padding-left:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center
+}
+
+.statusline{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:8px
+}
+
+.dot{
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  background:var(--danger)
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-bottom:18px
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:16px
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:var(--shadow)
+}
+
+.value{
+  font-size:30px;
+  font-weight:800;
+  margin-top:7px
+}
+
+.device{
+  padding:13px 0;
+  border-bottom:1px solid var(--line)
+}
+
+.device:last-child{
+  border:0
+}
+
+.device b{
+  font-size:14px
+}
+
+.device .meta{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:4px
+}
+
+.alert{
+  border:1px solid #f0d8d5;
+  background:#fff8f7;
+  border-radius:12px;
+  padding:14px;
+  margin-top:12px
+}
+
+.alert b{
+  color:var(--danger)
+}
+
+.alert p{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45
+}
+
+.foot{
+  font-size:11px;
+  color:#8b9aab;
+  margin-top:14px
+}
+
+@media(max-width:900px){
+  main{padding:22px 18px}
+
+  .hero,
+  .grid2{
+    grid-template-columns:1fr
+  }
+
+  .grid3{
+    grid-template-columns:1fr
+  }
+
+  .statusbox{
+    border-left:0;
+    border-top:1px solid var(--line);
+    padding:18px 0 0
+  }
+}
+</style>
+</head>
+
 <body>
 
+<!-- ================================================================
+     BARRA SUPERIOR
+     ================================================================ -->
+
 <div class="topbar">
+
   <div class="brand">
-    <!-- EDITAR: reemplaza logo-demo.svg por tu imagen en /static -->
+
+    <!-- EDITAR: reemplaza logo-demo.svg por tu logo -->
     <img class="logo" src="/static/logo-demo.svg" alt="Logo">
 
     <span>Flow Control, by BRICS21</span>
+
   </div>
 
   <div class="user">
+
+    <!-- Este espacio permanece intencionalmente vacío -->
     <span></span>
+
     <a href="/logout">Cerrar Sesión</a>
+
   </div>
+
 </div>
 
+
 <main>
+
+  <!-- ================================================================
+       TÍTULO PRINCIPAL
+       ================================================================ -->
+
   <div class="heading">
+
     <div>
+
       <h1>Monitoreo Remoto Medidores Las Añañucas</h1>
+
       <p>Medidor Agua de Riego Parcela 64</p>
+
     </div>
 
-    <div class="pill">Reserva Las Añañucas, Limache</div>
+    <div class="pill">
+      Reserva Las Añañucas, Limache
+    </div>
+
   </div>
 
+
+  <!-- ================================================================
+       TARJETA PRINCIPAL DEL MEDIDOR
+       ================================================================ -->
+
   <section class="hero">
+
     <div>
-      <div class="eyebrow">Medidor TECNIDRO TW50 R1506740</div>
 
-      <!-- AUTOMÁTICO: nombre real del sensor -->
-      <div class="meter-name" id="meterName">CARGANDO_DISPOSITIVO...</div>
+      <div class="eyebrow">
+        Medidor TECNIDRO TW50 R1506740
+      </div>
 
-      <!-- AUTOMÁTICO: valor de agua -->
-      <div class="big"><span id="water">—</span> <small>m³</small></div>
+      <!--
+      NOMBRE COMERCIAL DEL MEDIDOR.
+      Ya no se muestra "PUL 1 · Prueba Pulso Milesight".
+      -->
+      <div class="meter-name">
+        Agua de Riego, Parcela 64
+      </div>
 
-      <div class="caption">Última lectura real registrada por el sistema</div>
+      <!-- AUTOMÁTICO: lectura del medidor -->
+      <div class="big">
+        <span id="water">—</span>
+        <small>m³</small>
+      </div>
+
+      <div class="caption">
+        Última lectura real registrada por el sistema
+      </div>
+
     </div>
 
+
+    <!-- ==============================================================
+         ESTADO DEL SENSOR
+         ============================================================== -->
+
     <div class="statusbox">
-      <div class="statusline"><span class="dot"></span>
-        <span>TEXTO_ESTADO_SIN_COMUNICACION</span>
+
+      <div class="statusline">
+
+        <span class="dot"></span>
+
+        <span>Esperando datos...</span>
+
       </div>
 
       <div class="sub">
-        TEXTO_ESTADO_ULTIMA_COMUNICACION: <b id="lastSeen">—</b><br>
-        TEXTO_ESTADO_DATO: <b>TEXTO_ESTADO_ULTIMO_VALOR_CONOCIDO</b>
+
+        Última comunicación:
+        <b id="lastSeen">—</b>
+
+        <br>
+
+        TEXTO_ESTADO_DATO:
+        <b>TEXTO_ESTADO_ULTIMO_VALOR_CONOCIDO</b>
+
       </div>
+
     </div>
+
   </section>
 
-  <!-- LAS TRES TARJETAS CORRESPONDEN AL MISMO DISPOSITIVO PUL 1 -->
+
+  <!-- ================================================================
+       TARJETAS DE INFORMACIÓN
+       Todos los datos corresponden al dispositivo PUL 1.
+       ================================================================ -->
+
   <section class="grid3">
-    <div class="card">
-      <div class="label">TEXTO_TARJETA_AGUA_TITULO</div>
-      <div class="value" id="waterCard">—</div>
-      <div class="sub">TEXTO_TARJETA_AGUA_DESCRIPCION</div>
-    </div>
+
+
+    <!-- TARJETA AGUA -->
 
     <div class="card">
-      <div class="label">TEXTO_TARJETA_TEMPERATURA_TITULO</div>
-      <div class="value" id="temp">—</div>
-      <div class="sub">TEXTO_TARJETA_TEMPERATURA_DESCRIPCION</div>
+
+      <div class="label">
+        Consumo últimas 24 horas
+      </div>
+
+      <!--
+      IMPORTANTE:
+      Por ahora este valor sigue mostrando la lectura de agua entregada
+      por la API. Más adelante modificaremos el backend para calcular
+      realmente el consumo de las últimas 24 horas.
+      -->
+      <div class="value" id="waterCard">
+        —
+      </div>
+
+      <!-- AUTOMÁTICO: última comunicación -->
+      <div class="sub">
+        Última comunicación:
+        <span id="waterLastSeen">—</span>
+      </div>
+
     </div>
 
+
+    <!-- TARJETA TEMPERATURA -->
+
     <div class="card">
-      <div class="label">TEXTO_TARJETA_HUMEDAD_TITULO</div>
-      <div class="value" id="hum">—</div>
-      <div class="sub">TEXTO_TARJETA_HUMEDAD_DESCRIPCION</div>
+
+      <div class="label">
+        Temperatura Actual
+      </div>
+
+      <!-- AUTOMÁTICO -->
+      <div class="value" id="temp">
+        —
+      </div>
+
+      <!-- AUTOMÁTICO: última comunicación -->
+      <div class="sub">
+        Última comunicación:
+        <span id="tempLastSeen">—</span>
+      </div>
+
     </div>
+
+
+    <!-- TARJETA HUMEDAD -->
+
+    <div class="card">
+
+      <div class="label">
+        Humedad Relativa del Aire
+      </div>
+
+      <!-- AUTOMÁTICO -->
+      <div class="value" id="hum">
+        —
+      </div>
+
+      <!-- AUTOMÁTICO: última comunicación -->
+      <div class="sub">
+        Última comunicación:
+        <span id="humLastSeen">—</span>
+      </div>
+
+    </div>
+
   </section>
+
+
+  <!-- ================================================================
+       SECCIÓN INFERIOR
+       ================================================================ -->
 
   <section class="grid2">
-    <div class="card">
-      <div class="label">TEXTO_SECCION_SENSOR_TITULO</div>
 
-      <div id="devices">CARGANDO_DATOS...</div>
-
-      <div class="foot">TEXTO_SECCION_SENSOR_NOTA_PIE</div>
-    </div>
 
     <div class="card">
-      <div class="label">TEXTO_ALERTAS_TITULO</div>
 
-      <div class="alert">
-        <b>TEXTO_ALERTA_PRINCIPAL_TITULO</b>
-        <p>TEXTO_ALERTA_PRINCIPAL_DESCRIPCION</p>
+      <div class="label">
+        TEXTO_SECCION_SENSOR_TITULO
       </div>
 
-      <div class="device"><b>TEXTO_CAPACIDAD_1_TITULO</b><div class="meta">TEXTO_CAPACIDAD_1_DESCRIPCION</div></div>
-      <div class="device"><b>TEXTO_CAPACIDAD_2_TITULO</b><div class="meta">TEXTO_CAPACIDAD_2_DESCRIPCION</div></div>
-      <div class="device"><b>TEXTO_CAPACIDAD_3_TITULO</b><div class="meta">TEXTO_CAPACIDAD_3_DESCRIPCION</div></div>
+      <!-- AUTOMÁTICO -->
+      <div id="devices">
+        CARGANDO_DATOS...
+      </div>
+
+      <div class="foot">
+        TEXTO_SECCION_SENSOR_NOTA_PIE
+      </div>
+
     </div>
+
+
+    <!-- ==============================================================
+         ALERTAS
+         ============================================================== -->
+
+    <div class="card">
+
+      <div class="label">
+        Alertas
+      </div>
+
+
+      <div class="alert">
+
+        <b>
+          TEXTO_ALERTA_PRINCIPAL_TITULO
+        </b>
+
+        <p>
+          TEXTO_ALERTA_PRINCIPAL_DESCRIPCION
+        </p>
+
+      </div>
+
+
+      <div class="device">
+
+        <b>
+          TEXTO_CAPACIDAD_1_TITULO
+        </b>
+
+        <div class="meta">
+          TEXTO_CAPACIDAD_1_DESCRIPCION
+        </div>
+
+      </div>
+
+
+      <div class="device">
+
+        <b>
+          TEXTO_CAPACIDAD_2_TITULO
+        </b>
+
+        <div class="meta">
+          TEXTO_CAPACIDAD_2_DESCRIPCION
+        </div>
+
+      </div>
+
+
+      <div class="device">
+
+        <b>
+          TEXTO_CAPACIDAD_3_TITULO
+        </b>
+
+        <div class="meta">
+          TEXTO_CAPACIDAD_3_DESCRIPCION
+        </div>
+
+      </div>
+
+
+    </div>
+
   </section>
+
 </main>
 
+
 <script>
-/* NO ES NECESARIO EDITAR ESTA SECCIÓN PARA CAMBIAR LOS TEXTOS.
-   PUL 1 se usa como equipo principal y la API fusiona los últimos
-   valores no nulos de agua, temperatura y humedad. */
+
+/* ================================================================
+   CARGA DE DATOS
+
+   NO NECESITAS MODIFICAR ESTA PARTE PARA CAMBIAR LOS TEXTOS.
+
+   El sistema busca PUL 1 en la API.
+   Agua, temperatura y humedad pertenecen al mismo dispositivo.
+   ================================================================ */
+
+
+/* ---------------------------------------------------------------
+   Convierte la fecha entregada por el servidor a formato chileno
+   --------------------------------------------------------------- */
 
 function dateCL(v){
-  return v ? new Date(v).toLocaleString("es-CL") : "—";
+
+  return v
+    ? new Date(v).toLocaleString("es-CL")
+    : "—";
+
 }
 
+
+/* ---------------------------------------------------------------
+   Carga los datos del dispositivo
+   --------------------------------------------------------------- */
+
 async function load(){
+
   const r = await fetch("/api/devices");
+
   if(!r.ok) return;
 
+
   const ds = await r.json();
-  const pul = ds.find(d => d.device_name === "PUL 1") || ds[0];
+
+
+  /* Busca específicamente el dispositivo PUL 1 */
+
+  const pul =
+    ds.find(d => d.device_name === "PUL 1") || ds[0];
+
+
   if(!pul) return;
 
-  document.getElementById("meterName").textContent =
-    (pul.device_name || "") +
-    (pul.application_name ? " · " + pul.application_name : "");
+
+
+  /* ==============================================================
+     AGUA
+     ============================================================== */
 
   if(pul.water != null){
-    const m3 = (pul.water/1000).toLocaleString("es-CL",{
-      minimumFractionDigits:1,
-      maximumFractionDigits:3
-    });
 
-    document.getElementById("water").textContent = m3;
-    document.getElementById("waterCard").textContent = m3 + " m³";
+    const m3 =
+      (pul.water / 1000)
+      .toLocaleString(
+        "es-CL",
+        {
+          minimumFractionDigits:1,
+          maximumFractionDigits:3
+        }
+      );
+
+
+    /* Lectura principal */
+
+    document.getElementById("water").textContent =
+      m3;
+
+
+    /* Tarjeta de agua */
+
+    document.getElementById("waterCard").textContent =
+      m3 + " m³";
+
   }
 
+
+
+  /* ==============================================================
+     TEMPERATURA
+     ============================================================== */
+
   document.getElementById("temp").textContent =
-    pul.temperature != null ? pul.temperature + " °C" : "—";
+
+    pul.temperature != null
+
+      ? pul.temperature + " °C"
+
+      : "—";
+
+
+
+  /* ==============================================================
+     HUMEDAD
+     ============================================================== */
 
   document.getElementById("hum").textContent =
-    pul.humidity != null ? pul.humidity + " %" : "—";
+
+    pul.humidity != null
+
+      ? pul.humidity + " %"
+
+      : "—";
+
+
+
+  /* ==============================================================
+     FECHA ÚLTIMA COMUNICACIÓN GENERAL
+     ============================================================== */
 
   document.getElementById("lastSeen").textContent =
     dateCL(pul.last_seen);
 
+
+
+  /* ==============================================================
+     FECHAS INDIVIDUALES DE CADA VARIABLE
+
+     La API V2 guarda la fecha del último valor no nulo de cada campo.
+     Si esa fecha existe, usamos la correspondiente.
+     ============================================================== */
+
+
+  document.getElementById("waterLastSeen").textContent =
+
+    dateCL(
+      pul.water_ts || pul.last_seen
+    );
+
+
+
+  document.getElementById("tempLastSeen").textContent =
+
+    dateCL(
+      pul.temperature_ts || pul.last_seen
+    );
+
+
+
+  document.getElementById("humLastSeen").textContent =
+
+    dateCL(
+      pul.humidity_ts || pul.last_seen
+    );
+
+
+
+  /* ==============================================================
+     INFORMACIÓN TÉCNICA DEL SENSOR
+     ============================================================== */
+
   document.getElementById("devices").innerHTML = `
+
     <div class="device">
-      <b>${pul.device_name || "—"}</b>
-      <div class="meta">${pul.device_profile_name || "—"}</div>
+
+      <b>
+        Agua de Riego, Parcela 64
+      </b>
+
       <div class="meta">
-        Gateway: ${pul.gateway_id || "—"} ·
-        RSSI: ${pul.rssi ?? "—"} dBm ·
-        Batería: ${pul.battery ?? "—"} %
+        ${pul.device_profile_name || "—"}
       </div>
+
       <div class="meta">
-        Última comunicación: ${dateCL(pul.last_seen)}
+
+        Gateway:
+        ${pul.gateway_id || "—"}
+
+        · RSSI:
+        ${pul.rssi ?? "—"} dBm
+
+        · Batería:
+        ${pul.battery ?? "—"} %
+
       </div>
-    </div>`;
+
+      <div class="meta">
+
+        Última comunicación:
+        ${dateCL(pul.last_seen)}
+
+      </div>
+
+    </div>
+
+  `;
+
 }
 
+
+/* Primera carga */
+
 load();
+
+
+/* Actualiza la pantalla automáticamente cada 5 segundos */
+
 setInterval(load,5000);
+
 </script>
+
 
 </body>
 </html>
