@@ -617,27 +617,27 @@ def calculate_water_24h(
     # antes de la lectura actual.
     # ------------------------------------------------------------
 
-    rows = con.execute("""
+rows = con.execute("""
 
-        SELECT
-            water,
-            ts
+    SELECT
+        water,
+        ts
 
-        FROM readings
+    FROM readings
 
-        WHERE
-            dev_eui=?
-            AND water IS NOT NULL
-            AND id != ?
+    WHERE
+        dev_eui=?
+        AND water IS NOT NULL
+        AND ts != ?
 
-        ORDER BY id DESC
+    ORDER BY id DESC
 
-    """, (
+""", (
 
-        dev_eui,
-        latest["rowid"] if "rowid" in latest.keys() else -1
+    dev_eui,
+    latest["ts"]
 
-    )).fetchall()
+)).fetchall()
 
 
     best_row = None
