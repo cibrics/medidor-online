@@ -1,42 +1,2640 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Flow Control - Las Añañucas</title>
-<style>
-:root{--bg:#f5f8fb;--card:#fff;--ink:#17324a;--muted:#718397;--line:#dce6ee;--danger:#c94b45;--shadow:0 10px 30px rgba(35,65,95,.08)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif}.topbar{height:74px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px}.brand{display:flex;align-items:center;gap:10px;font-weight:800}.brand-text{white-space:nowrap}.logo-brics{width:92px;height:auto;object-fit:contain;display:block}.user{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:14px}.user a{color:var(--muted);text-decoration:none}
-main{padding:30px 34px 44px;max-width:1380px;margin:0 auto}.heading{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.heading h1{margin:0 0 6px;font-size:28px}.heading p{margin:0;color:var(--muted)}.pill{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;color:var(--muted)}
-.hero{background:linear-gradient(120deg,#fff,#f7fbfe);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.45fr .8fr;gap:24px;margin-bottom:18px}.eyebrow,.label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}.meter-name{font-size:20px;font-weight:800;margin:8px 0 16px}.big{font-size:58px;font-weight:850;letter-spacing:-.04em}.big small{font-size:22px;color:var(--muted)}.caption,.sub{color:var(--muted);font-size:13px;margin-top:8px}.statusbox{border-left:1px solid var(--line);padding-left:24px;display:flex;flex-direction:column;justify-content:center}.statusline{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;margin-bottom:8px}.dot{width:11px;height:11px;border-radius:50%;background:var(--danger)}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:18px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}.value{font-size:30px;font-weight:800;margin-top:7px}
-.analytics-panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.1fr 1fr;gap:22px;margin-bottom:18px}.analytics-right{min-width:0;display:grid;grid-template-rows:1fr 1fr;gap:16px}.chart-box{border:1px solid #edf2f7;border-radius:14px;padding:14px 14px 10px;background:#fff;min-height:220px}.chart-title{font-size:13px;font-weight:800;margin-bottom:4px}.chart-subtitle{font-size:11px;color:var(--muted);margin-bottom:10px}.gauge-box{display:flex;flex-direction:column;height:100%;min-height:456px}.gauge-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:330px}.gauge-wrap canvas{width:100%;max-width:520px;height:300px}.bar-canvas{width:100%;height:165px;display:block}.legend-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;font-size:11px;color:var(--muted)}.legend-item{display:flex;align-items:center;gap:6px}.legend-swatch{width:10px;height:10px;border-radius:3px}
-@media(max-width:1000px){.analytics-panel{grid-template-columns:1fr}.analytics-right{grid-template-rows:auto}.gauge-box{min-height:390px}}@media(max-width:900px){main{padding:22px 18px}.hero{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}.statusbox{border-left:0;border-top:1px solid var(--line);padding:18px 0 0}.topbar{padding:0 18px}.logo-brics{width:78px}}
-</style>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0"
+  >
+
+  <!-- ================================================================
+       TÍTULO DE LA PESTAÑA DEL NAVEGADOR
+       ================================================================ -->
+
+  <title>
+    Flow Control - Las Añañucas
+  </title>
+
+
+  <style>
+
+    /* ================================================================
+       VARIABLES GENERALES DE DISEÑO
+       ================================================================ */
+
+    :root{
+
+      --bg:#f5f8fb;
+
+      --card:#ffffff;
+
+      --ink:#17324a;
+
+      --muted:#718397;
+
+      --line:#dce6ee;
+
+      --accent:#1e88e5;
+
+      --danger:#c94b45;
+
+      --success:#38a169;
+
+      --warning:#e6b94a;
+
+      --shadow:
+        0 10px 30px rgba(35,65,95,.08);
+
+    }
+
+
+    /* ================================================================
+       REGLAS GENERALES
+       ================================================================ */
+
+    *{
+
+      box-sizing:border-box;
+
+    }
+
+
+    body{
+
+      margin:0;
+
+      background:
+        var(--bg);
+
+      color:
+        var(--ink);
+
+      font-family:
+        Inter,
+        Segoe UI,
+        Arial,
+        sans-serif;
+
+    }
+
+
+    /* ================================================================
+       BARRA SUPERIOR
+       ================================================================ */
+
+    .topbar{
+
+      height:74px;
+
+      background:#fff;
+
+      border-bottom:
+        1px solid var(--line);
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
+
+      padding:
+        0 34px;
+
+    }
+
+
+    .brand{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:10px;
+
+      font-weight:800;
+
+    }
+
+
+    .brand-text{
+
+      white-space:nowrap;
+
+    }
+
+
+    .logo-brics{
+
+      width:92px;
+
+      height:auto;
+
+      object-fit:contain;
+
+      display:block;
+
+    }
+
+
+    .user{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:14px;
+
+      color:
+        var(--muted);
+
+      font-size:14px;
+
+    }
+
+
+    .user a{
+
+      color:
+        var(--muted);
+
+      text-decoration:none;
+
+    }
+
+
+    /* ================================================================
+       CONTENEDOR PRINCIPAL
+       ================================================================ */
+
+    main{
+
+      padding:
+        30px 34px 44px;
+
+      max-width:
+        1380px;
+
+      margin:
+        0 auto;
+
+    }
+
+
+    /* ================================================================
+       ENCABEZADO PRINCIPAL
+       ================================================================ */
+
+    .heading{
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:flex-start;
+
+      margin-bottom:20px;
+
+    }
+
+
+    .heading h1{
+
+      margin:
+        0 0 6px;
+
+      font-size:28px;
+
+    }
+
+
+    .heading p{
+
+      margin:0;
+
+      color:
+        var(--muted);
+
+    }
+
+
+    .pill{
+
+      padding:
+        8px 12px;
+
+      border-radius:
+        999px;
+
+      background:#fff;
+
+      border:
+        1px solid var(--line);
+
+      font-size:13px;
+
+      color:
+        var(--muted);
+
+    }
+
+
+    /* ================================================================
+       TARJETA PRINCIPAL DEL MEDIDOR
+       ================================================================ */
+
+    .hero{
+
+      background:
+        linear-gradient(
+          120deg,
+          #fff,
+          #f7fbfe
+        );
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        18px;
+
+      padding:
+        26px;
+
+      box-shadow:
+        var(--shadow);
+
+      display:grid;
+
+      grid-template-columns:
+        1.45fr .8fr;
+
+      gap:24px;
+
+      margin-bottom:18px;
+
+    }
+
+
+    /* ================================================================
+       ESTILO DE TÍTULOS DE SECCIÓN
+       IMPORTANTE:
+       Este mismo estilo se reutiliza en tarjetas y gráficos
+       para mantener consistencia visual.
+       ================================================================ */
+
+    .eyebrow,
+    .label,
+    .chart-title{
+
+      font-size:12px;
+
+      color:
+        var(--muted);
+
+      text-transform:
+        uppercase;
+
+      letter-spacing:
+        .09em;
+
+      font-weight:
+        400;
+
+    }
+
+
+    .meter-name{
+
+      font-size:20px;
+
+      font-weight:800;
+
+      margin:
+        8px 0 16px;
+
+    }
+
+
+    .big{
+
+      font-size:58px;
+
+      font-weight:850;
+
+      letter-spacing:
+        -.04em;
+
+    }
+
+
+    .big small{
+
+      font-size:22px;
+
+      color:
+        var(--muted);
+
+    }
+
+
+    /* ================================================================
+       ESTILO DE SUBTÍTULOS
+       IMPORTANTE:
+       Se usa la misma jerarquía en todo el dashboard.
+       ================================================================ */
+
+    .caption,
+    .sub,
+    .chart-subtitle{
+
+      color:
+        var(--muted);
+
+      font-size:13px;
+
+    }
+
+
+    .caption,
+    .sub{
+
+      margin-top:8px;
+
+    }
+
+
+    .chart-title{
+
+      margin-bottom:8px;
+
+    }
+
+
+    .chart-subtitle{
+
+      margin-bottom:12px;
+
+    }
+
+
+    /* ================================================================
+       ESTADO DE COMUNICACIÓN
+       ================================================================ */
+
+    .statusbox{
+
+      border-left:
+        1px solid var(--line);
+
+      padding-left:
+        24px;
+
+      display:flex;
+
+      flex-direction:column;
+
+      justify-content:center;
+
+    }
+
+
+    .statusline{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:10px;
+
+      font-size:18px;
+
+      font-weight:800;
+
+      margin-bottom:8px;
+
+    }
+
+
+    .dot{
+
+      width:11px;
+
+      height:11px;
+
+      border-radius:50%;
+
+      background:
+        var(--danger);
+
+    }
+
+
+    /* ================================================================
+       TARJETAS RESUMEN
+       ================================================================ */
+
+    .grid3{
+
+      display:grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap:16px;
+
+      margin-bottom:18px;
+
+    }
+
+
+    .card{
+
+      background:#fff;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        16px;
+
+      padding:
+        20px;
+
+      box-shadow:
+        var(--shadow);
+
+    }
+
+
+    .value{
+
+      font-size:30px;
+
+      font-weight:800;
+
+      margin-top:7px;
+
+    }
+
+
+    /* ================================================================
+       SECCIÓN ANALÍTICA
+       Layout:
+       - KPI semicircular grande a la izquierda
+       - consumo diario arriba a la derecha
+       - consumo año móvil abajo a la derecha
+       ================================================================ */
+
+    .analytics-panel{
+
+      background:#fff;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        18px;
+
+      padding:
+        22px;
+
+      box-shadow:
+        var(--shadow);
+
+      display:grid;
+
+      grid-template-columns:
+        1.1fr 1fr;
+
+      gap:22px;
+
+      margin-bottom:18px;
+
+    }
+
+
+    .analytics-left{
+
+      min-width:0;
+
+      display:flex;
+
+      flex-direction:column;
+
+    }
+
+
+    .analytics-right{
+
+      min-width:0;
+
+      display:grid;
+
+      grid-template-rows:
+        1fr 1fr;
+
+      gap:16px;
+
+    }
+
+
+    .chart-box{
+
+      border:
+        1px solid #edf2f7;
+
+      border-radius:
+        14px;
+
+      padding:
+        14px 14px 10px;
+
+      background:#fff;
+
+      min-height:220px;
+
+    }
+
+
+    .gauge-box{
+
+      display:flex;
+
+      flex-direction:column;
+
+      height:100%;
+
+      min-height:456px;
+
+    }
+
+
+    .gauge-wrap{
+
+      flex:1;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      min-height:330px;
+
+    }
+
+
+    .gauge-wrap canvas{
+
+      width:100%;
+
+      max-width:520px;
+
+      height:300px;
+
+    }
+
+
+    .bar-canvas{
+
+      width:100%;
+
+      height:165px;
+
+      display:block;
+
+    }
+
+
+    /* ================================================================
+       LEYENDA DEL KPI
+       ================================================================ */
+
+    .legend-row{
+
+      display:flex;
+
+      gap:16px;
+
+      flex-wrap:wrap;
+
+      margin-top:6px;
+
+      font-size:11px;
+
+      color:
+        var(--muted);
+
+    }
+
+
+    .legend-item{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:6px;
+
+    }
+
+
+    .legend-swatch{
+
+      width:10px;
+
+      height:10px;
+
+      border-radius:3px;
+
+    }
+
+
+    /* ================================================================
+       ALERTAS
+       ================================================================ */
+
+    .alert-card{
+
+      margin-top:0;
+
+    }
+
+
+    .alert{
+
+      border:
+        1px solid #f0d8d5;
+
+      background:
+        #fff8f7;
+
+      border-radius:
+        12px;
+
+      padding:
+        14px;
+
+      margin-top:
+        12px;
+
+    }
+
+
+    .alert b{
+
+      color:
+        var(--danger);
+
+    }
+
+
+    .alert p{
+
+      margin:
+        6px 0 0;
+
+      color:
+        var(--muted);
+
+      font-size:
+        13px;
+
+      line-height:
+        1.45;
+
+    }
+
+
+    /* ================================================================
+       RESPONSIVE
+       ================================================================ */
+
+    @media(max-width:1000px){
+
+      .analytics-panel{
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .analytics-right{
+
+        grid-template-rows:
+          auto;
+
+      }
+
+
+      .gauge-box{
+
+        min-height:
+          390px;
+
+      }
+
+    }
+
+
+    @media(max-width:900px){
+
+      main{
+
+        padding:
+          22px 18px;
+
+      }
+
+
+      .hero{
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .grid3{
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .statusbox{
+
+        border-left:
+          0;
+
+        border-top:
+          1px solid var(--line);
+
+        padding:
+          18px 0 0;
+
+      }
+
+
+      .topbar{
+
+        padding:
+          0 18px;
+
+      }
+
+
+      .logo-brics{
+
+        width:
+          78px;
+
+      }
+
+    }
+
+  </style>
+
 </head>
+
+
 <body>
-<div class="topbar"><div class="brand"><span class="brand-text">Flow Control, by</span><img class="logo-brics" src="/static/logo-brics21.jpg" alt="BRICS21"></div><div class="user"><span></span><a href="/logout">Cerrar Sesión</a></div></div>
-<main>
-<div class="heading"><div><h1>Monitoreo Remoto Medidores Las Añañucas</h1><p>Medidor Agua de Riego Parcela 64</p></div><div class="pill">Reserva Las Añañucas, Limache</div></div>
-<section class="hero"><div><div class="eyebrow">Medidor TECNIDRO TW50 R1506740</div><div class="meter-name">Agua de Riego, Parcela 64</div><div class="big"><span id="water">—</span> <small>m³</small></div><div class="caption">Última lectura real registrada por el sistema</div></div><div class="statusbox"><div class="statusline"><span class="dot" id="statusDot"></span><span id="connectionStatus">Esperando datos...</span></div><div class="sub">Última comunicación: <b id="lastSeen">—</b><br>Estado del dato: <b id="dataStatus">—</b></div></div></section>
-<section class="grid3">
-<div class="card"><div class="label">Consumo últimas 24 horas</div><div class="value" id="waterCard">—</div><div class="sub">Última comunicación: <span id="waterLastSeen">—</span></div></div>
-<div class="card"><div class="label">Temperatura Actual</div><div class="value" id="temp">—</div><div class="sub">Última comunicación: <span id="tempLastSeen">—</span></div></div>
-<div class="card"><div class="label">Humedad Relativa del Aire</div><div class="value" id="hum">—</div><div class="sub">Última comunicación: <span id="humLastSeen">—</span></div></div>
-</section>
-<section class="analytics-panel">
-<div class="chart-box gauge-box"><div class="chart-title">Consumo del mes en curso</div><div class="chart-subtitle">Meta sin cobro adicional: hasta 100 m³</div><div class="gauge-wrap"><canvas id="gaugeCanvas"></canvas></div><div class="legend-row"><div class="legend-item"><span class="legend-swatch" style="background:#38a169"></span>0–80 m³</div><div class="legend-item"><span class="legend-swatch" style="background:#e6b94a"></span>80–100 m³</div><div class="legend-item"><span class="legend-swatch" style="background:#d95b55"></span>100–200 m³</div></div></div>
-<div class="analytics-right"><div class="chart-box"><div class="chart-title">Consumo diario del mes en curso</div><div class="chart-subtitle">Cada barra representa un día del mes</div><canvas class="bar-canvas" id="dailyChart"></canvas></div><div class="chart-box"><div class="chart-title">Consumo año móvil</div><div class="chart-subtitle">Últimos 12 meses</div><canvas class="bar-canvas" id="monthlyChart"></canvas></div></div>
-</section>
-</main>
-<script>
-function dateCL(v){return v?new Date(v).toLocaleString("es-CL"):"—"}
-function updateStatus(lastSeen){const connectionStatus=document.getElementById("connectionStatus"),dataStatus=document.getElementById("dataStatus"),statusDot=document.getElementById("statusDot");if(!lastSeen){connectionStatus.textContent="Desconectado";dataStatus.textContent="Sin datos";statusDot.style.background="#c94b45";return}const diffMinutes=Math.max(0,(new Date()-new Date(lastSeen))/60000);if(diffMinutes<16){connectionStatus.textContent="Conectado";statusDot.style.background="#24876e"}else{connectionStatus.textContent="Desconectado";statusDot.style.background="#c94b45"}if(diffMinutes<6)dataStatus.textContent="Dato actualizado";else if(diffMinutes<16)dataStatus.textContent="Último valor conocido";else dataStatus.textContent="Sin datos"}
-function prep(canvas){const rect=canvas.getBoundingClientRect(),ratio=window.devicePixelRatio||1,w=Math.max(300,Math.round(rect.width)),h=Math.max(150,Math.round(rect.height));canvas.width=w*ratio;canvas.height=h*ratio;const ctx=canvas.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);return{ctx,w,h}}
-function drawGauge(value){const c=document.getElementById("gaugeCanvas"),{ctx,w,h}=prep(c);ctx.clearRect(0,0,w,h);const cx=w/2,cy=h*.76,r=Math.min(w*.39,h*.56),lw=Math.max(28,r*.23);const angle=v=>Math.PI+(Math.max(0,Math.min(200,v))/200)*Math.PI;function arc(a,b,color){ctx.beginPath();ctx.arc(cx,cy,r,angle(a),angle(b));ctx.strokeStyle=color;ctx.lineWidth=lw;ctx.lineCap="butt";ctx.stroke()}arc(0,80,"#38a169");arc(80,100,"#e6b94a");arc(100,200,"#d95b55");ctx.fillStyle="#718397";ctx.font="12px Segoe UI";ctx.textAlign="center";[0,80,100,200].forEach(m=>{const aa=angle(m),rr=r+lw*.8;ctx.fillText(m,cx+Math.cos(aa)*rr,cy+Math.sin(aa)*rr)});const dv=value==null?0:Math.max(0,Math.min(200,value)),na=angle(dv);ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(na)*r*.78,cy+Math.sin(na)*r*.78);ctx.strokeStyle="#17324a";ctx.lineWidth=6;ctx.lineCap="round";ctx.stroke();ctx.beginPath();ctx.arc(cx,cy,10,0,Math.PI*2);ctx.fillStyle="#17324a";ctx.fill();ctx.font="700 29px Segoe UI";ctx.fillStyle="#17324a";ctx.fillText(value==null?"Sin historial":value.toLocaleString("es-CL",{minimumFractionDigits:1,maximumFractionDigits:1})+" m³",cx,cy+54);ctx.font="12px Segoe UI";ctx.fillStyle="#718397";ctx.fillText("Consumo acumulado del mes",cx,cy+78)}
-function drawBars(id,labels,values,color){const c=document.getElementById(id),{ctx,w,h}=prep(c);ctx.clearRect(0,0,w,h);const p={l:44,r:12,t:12,b:32},cw=w-p.l-p.r,ch=h-p.t-p.b,valid=values.filter(v=>v!=null&&Number.isFinite(v));let max=valid.length?Math.max(...valid):1;if(max<=0)max=1;max*=1.18;ctx.strokeStyle="#e7edf3";ctx.fillStyle="#718397";ctx.font="10px Segoe UI";ctx.textAlign="right";for(let i=0;i<=4;i++){const y=p.t+ch*i/4;ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(w-p.r,y);ctx.stroke();ctx.fillText((max*(1-i/4)).toFixed(1),p.l-7,y+3)}const slot=cw/Math.max(1,labels.length),bw=Math.max(2,Math.min(24,slot*.62));values.forEach((raw,i)=>{const v=raw==null?0:raw,bh=ch*(v/max),x=p.l+i*slot+(slot-bw)/2,y=p.t+ch-bh;ctx.fillStyle=color;ctx.fillRect(x,y,bw,bh);const every=labels.length>20?3:1;if(i%every===0||i===labels.length-1){ctx.fillStyle="#718397";ctx.font="9px Segoe UI";ctx.textAlign="center";ctx.fillText(labels[i],x+bw/2,p.t+ch+17)}});if(!valid.length){ctx.fillStyle="#718397";ctx.font="13px Segoe UI";ctx.textAlign="center";ctx.fillText("Sin historial suficiente",p.l+cw/2,p.t+ch/2)}}
-let lastAnalytics=null;function renderAnalytics(a){drawGauge(a.current_month_m3);drawBars("dailyChart",a.daily_current_month.map(x=>String(x.day)),a.daily_current_month.map(x=>x.value),"#3f7eb8");drawBars("monthlyChart",a.rolling_12_months.map(x=>x.label),a.rolling_12_months.map(x=>x.value),"#607d9d")}
-async function load(){const r=await fetch("/api/devices");if(!r.ok)return;const ds=await r.json(),pul=ds.find(d=>d.device_name==="PUL 1")||ds[0];if(!pul){updateStatus(null);return}if(pul.water!=null)document.getElementById("water").textContent=(pul.water/1000).toLocaleString("es-CL",{minimumFractionDigits:1,maximumFractionDigits:3});document.getElementById("waterCard").textContent=pul.water_24h_m3!=null?pul.water_24h_m3.toLocaleString("es-CL",{minimumFractionDigits:1,maximumFractionDigits:3})+" m³":"Sin historial suficiente";document.getElementById("temp").textContent=pul.temperature!=null?pul.temperature+" °C":"—";document.getElementById("hum").textContent=pul.humidity!=null?pul.humidity+" %":"—";document.getElementById("lastSeen").textContent=dateCL(pul.last_seen);updateStatus(pul.last_seen);document.getElementById("waterLastSeen").textContent=dateCL(pul.water_ts||pul.last_seen);document.getElementById("tempLastSeen").textContent=dateCL(pul.temperature_ts||pul.last_seen);document.getElementById("humLastSeen").textContent=dateCL(pul.humidity_ts||pul.last_seen);const ar=await fetch("/api/analytics/"+encodeURIComponent(pul.dev_eui));if(ar.ok){lastAnalytics=await ar.json();renderAnalytics(lastAnalytics)}}
-let rt=null;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{if(lastAnalytics)renderAnalytics(lastAnalytics)},180)});load();setInterval(load,5000);
-</script>
-</body></html>
+
+
+  <!-- ================================================================
+       BARRA SUPERIOR
+       ================================================================ -->
+
+  <div class="topbar">
+
+
+    <!-- ==============================================================
+         IDENTIDAD FLOW CONTROL + LOGO BRICS21
+
+         El archivo de logo debe existir en:
+         /static/logo-brics21.jpg
+         ============================================================== -->
+
+    <div class="brand">
+
+      <span class="brand-text">
+        Flow Control, by
+      </span>
+
+      <img
+        class="logo-brics"
+        src="/static/logo-brics21.jpg"
+        alt="BRICS21"
+      >
+
+    </div>
+
+
+    <!-- ==============================================================
+         CIERRE DE SESIÓN
+         ============================================================== -->
+
+    <div class="user">
+
+      <span></span>
+
+      <a href="/logout">
+        Cerrar Sesión
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <main>
+
+
+    <!-- ================================================================
+         ENCABEZADO PRINCIPAL
+         ================================================================ -->
+
+    <div class="heading">
+
+      <div>
+
+        <h1>
+          Monitoreo Remoto Medidores Las Añañucas
+        </h1>
+
+        <p>
+          Medidor Agua de Riego Parcela 64
+        </p>
+
+      </div>
+
+
+      <div class="pill">
+
+        Reserva Las Añañucas, Limache
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================================================
+         TARJETA PRINCIPAL DEL MEDIDOR
+         ================================================================ -->
+
+    <section class="hero">
+
+
+      <!-- ==============================================================
+           LECTURA PRINCIPAL
+           ============================================================== -->
+
+      <div>
+
+        <div class="eyebrow">
+
+          Medidor TECNIDRO TW50 R1506740
+
+        </div>
+
+
+        <div class="meter-name">
+
+          Agua de Riego, Parcela 64
+
+        </div>
+
+
+        <div class="big">
+
+          <span id="water">
+            —
+          </span>
+
+          <small>
+            m³
+          </small>
+
+        </div>
+
+
+        <div class="caption">
+
+          Última lectura real registrada por el sistema
+
+        </div>
+
+      </div>
+
+
+      <!-- ==============================================================
+           ESTADO DE COMUNICACIÓN
+           ============================================================== -->
+
+      <div class="statusbox">
+
+
+        <div class="statusline">
+
+          <span
+            class="dot"
+            id="statusDot"
+          ></span>
+
+          <span id="connectionStatus">
+
+            Esperando datos...
+
+          </span>
+
+        </div>
+
+
+        <div class="sub">
+
+          Última comunicación:
+
+          <b id="lastSeen">
+            —
+          </b>
+
+          <br>
+
+          Estado del dato:
+
+          <b id="dataStatus">
+            —
+          </b>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================================================
+         TRES TARJETAS DE RESUMEN
+         ================================================================ -->
+
+    <section class="grid3">
+
+
+      <!-- ==============================================================
+           CONSUMO ÚLTIMAS 24 HORAS
+           ============================================================== -->
+
+      <div class="card">
+
+        <div class="label">
+
+          Consumo últimas 24 horas
+
+        </div>
+
+
+        <div
+          class="value"
+          id="waterCard"
+        >
+
+          —
+
+        </div>
+
+
+        <div class="sub">
+
+          Última comunicación:
+
+          <span id="waterLastSeen">
+            —
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- ==============================================================
+           TEMPERATURA
+           ============================================================== -->
+
+      <div class="card">
+
+        <div class="label">
+
+          Temperatura Actual
+
+        </div>
+
+
+        <div
+          class="value"
+          id="temp"
+        >
+
+          —
+
+        </div>
+
+
+        <div class="sub">
+
+          Última comunicación:
+
+          <span id="tempLastSeen">
+            —
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- ==============================================================
+           HUMEDAD
+           ============================================================== -->
+
+      <div class="card">
+
+        <div class="label">
+
+          Humedad Relativa del Aire
+
+        </div>
+
+
+        <div
+          class="value"
+          id="hum"
+        >
+
+          —
+
+        </div>
+
+
+        <div class="sub">
+
+          Última comunicación:
+
+          <span id="humLastSeen">
+            —
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================================================
+         ANALÍTICA DE CONSUMO
+
+         Esta sección reemplaza la antigua tarjeta de información
+         técnica del sensor.
+
+         Contiene:
+         1. KPI semicircular del consumo mensual.
+         2. Consumo diario del mes en curso.
+         3. Consumo de los últimos 12 meses.
+         ================================================================ -->
+
+    <section class="analytics-panel">
+
+
+      <!-- ==============================================================
+           KPI SEMICIRCULAR
+           ============================================================== -->
+
+      <div class="analytics-left">
+
+
+        <div class="chart-box gauge-box">
+
+
+          <div class="chart-title">
+
+            Consumo del mes en curso
+
+          </div>
+
+
+          <div class="chart-subtitle">
+
+            Meta sin cobro adicional: hasta 100 m³
+
+          </div>
+
+
+          <div class="gauge-wrap">
+
+            <canvas
+              id="gaugeCanvas"
+              width="620"
+              height="330"
+            ></canvas>
+
+          </div>
+
+
+          <!-- ==========================================================
+               LEYENDA DE COLORES
+               ========================================================== -->
+
+          <div class="legend-row">
+
+
+            <div class="legend-item">
+
+              <span
+                class="legend-swatch"
+                style="background:#38a169"
+              ></span>
+
+              0–80 m³
+
+            </div>
+
+
+            <div class="legend-item">
+
+              <span
+                class="legend-swatch"
+                style="background:#e6b94a"
+              ></span>
+
+              80–100 m³
+
+            </div>
+
+
+            <div class="legend-item">
+
+              <span
+                class="legend-swatch"
+                style="background:#d95b55"
+              ></span>
+
+              100–200 m³
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ==============================================================
+           GRÁFICOS DE BARRAS
+           ============================================================== -->
+
+      <div class="analytics-right">
+
+
+        <!-- ============================================================
+             CONSUMO DIARIO DEL MES
+             ============================================================ -->
+
+        <div class="chart-box">
+
+
+          <div class="chart-title">
+
+            Consumo diario del mes en curso
+
+          </div>
+
+
+          <div class="chart-subtitle">
+
+            Cada barra representa un día del mes
+
+          </div>
+
+
+          <canvas
+            class="bar-canvas"
+            id="dailyChart"
+            width="700"
+            height="210"
+          ></canvas>
+
+        </div>
+
+
+        <!-- ============================================================
+             CONSUMO AÑO MÓVIL
+             ============================================================ -->
+
+        <div class="chart-box">
+
+
+          <div class="chart-title">
+
+            Consumo año móvil
+
+          </div>
+
+
+          <div class="chart-subtitle">
+
+            Últimos 12 meses
+
+          </div>
+
+
+          <canvas
+            class="bar-canvas"
+            id="monthlyChart"
+            width="700"
+            height="210"
+          ></canvas>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================================================
+         ALERTAS
+         ================================================================ -->
+
+    <section class="card alert-card">
+
+
+      <div class="label">
+
+        Alertas
+
+      </div>
+
+
+      <div class="alert">
+
+
+        <b>
+
+          TEXTO_ALERTA_PRINCIPAL_TITULO
+
+        </b>
+
+
+        <p>
+
+          TEXTO_ALERTA_PRINCIPAL_DESCRIPCION
+
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+
+    /* ================================================================
+       CONVERSIÓN DE FECHA AL FORMATO CHILENO
+       ================================================================ */
+
+    function dateCL(value){
+
+      if(!value){
+
+        return "—";
+
+      }
+
+
+      return new Date(value)
+        .toLocaleString(
+          "es-CL"
+        );
+
+    }
+
+
+    /* ================================================================
+       ESTADO DE COMUNICACIÓN
+
+       REGLAS:
+
+       Comunicación:
+       - Menos de 16 minutos = Conectado
+       - 16 minutos o más = Desconectado
+
+       Estado del dato:
+       - Menos de 6 minutos = Dato actualizado
+       - Desde 6 y menos de 16 = Último valor conocido
+       - 16 minutos o más = Sin datos
+       ================================================================ */
+
+    function updateStatus(lastSeen){
+
+
+      const connectionStatus =
+        document.getElementById(
+          "connectionStatus"
+        );
+
+
+      const dataStatus =
+        document.getElementById(
+          "dataStatus"
+        );
+
+
+      const statusDot =
+        document.getElementById(
+          "statusDot"
+        );
+
+
+      /* --------------------------------------------------------------
+         SI NO EXISTE UNA FECHA DE COMUNICACIÓN
+         -------------------------------------------------------------- */
+
+      if(!lastSeen){
+
+
+        connectionStatus.textContent =
+          "Desconectado";
+
+
+        dataStatus.textContent =
+          "Sin datos";
+
+
+        statusDot.style.background =
+          "#c94b45";
+
+
+        return;
+
+      }
+
+
+      /* --------------------------------------------------------------
+         CALCULAR MINUTOS TRANSCURRIDOS
+         -------------------------------------------------------------- */
+
+      const now =
+        new Date();
+
+
+      const last =
+        new Date(
+          lastSeen
+        );
+
+
+      const diffMilliseconds =
+        now - last;
+
+
+      const diffMinutes =
+        Math.max(
+          0,
+          diffMilliseconds / 60000
+        );
+
+
+      /* --------------------------------------------------------------
+         ESTADO DE COMUNICACIÓN
+         -------------------------------------------------------------- */
+
+      if(diffMinutes < 16){
+
+
+        connectionStatus.textContent =
+          "Conectado";
+
+
+        statusDot.style.background =
+          "#24876e";
+
+
+      }else{
+
+
+        connectionStatus.textContent =
+          "Desconectado";
+
+
+        statusDot.style.background =
+          "#c94b45";
+
+      }
+
+
+      /* --------------------------------------------------------------
+         ESTADO DEL DATO
+         -------------------------------------------------------------- */
+
+      if(diffMinutes < 6){
+
+
+        dataStatus.textContent =
+          "Dato actualizado";
+
+
+      }else if(diffMinutes < 16){
+
+
+        dataStatus.textContent =
+          "Último valor conocido";
+
+
+      }else{
+
+
+        dataStatus.textContent =
+          "Sin datos";
+
+      }
+
+    }
+
+
+    /* ================================================================
+       PREPARACIÓN DE LOS CANVAS
+
+       Permite que los gráficos se vean nítidos incluso en pantallas
+       con alta densidad de píxeles.
+       ================================================================ */
+
+    function prepareCanvas(canvas){
+
+
+      const rect =
+        canvas.getBoundingClientRect();
+
+
+      const ratio =
+        window.devicePixelRatio || 1;
+
+
+      const width =
+        Math.max(
+          300,
+          Math.round(
+            rect.width
+          )
+        );
+
+
+      const height =
+        Math.max(
+          150,
+          Math.round(
+            rect.height
+          )
+        );
+
+
+      canvas.width =
+        width * ratio;
+
+
+      canvas.height =
+        height * ratio;
+
+
+      const ctx =
+        canvas.getContext(
+          "2d"
+        );
+
+
+      ctx.setTransform(
+        ratio,
+        0,
+        0,
+        ratio,
+        0,
+        0
+      );
+
+
+      return{
+
+        ctx,
+        width,
+        height
+
+      };
+
+    }
+
+
+    /* ================================================================
+       KPI SEMICIRCULAR DEL CONSUMO DEL MES
+
+       ESCALA:
+       - 0 m³ = mínimo
+       - 100 m³ = centro exacto
+       - 200 m³ = máximo
+
+       COLORES:
+       - 0 a 80 m³ = verde
+       - 80 a 100 m³ = amarillo
+       - 100 a 200 m³ = rojo
+       ================================================================ */
+
+    function drawGauge(value){
+
+
+      const canvas =
+        document.getElementById(
+          "gaugeCanvas"
+        );
+
+
+      const{
+        ctx,
+        width,
+        height
+      } =
+        prepareCanvas(
+          canvas
+        );
+
+
+      ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+
+      const centerX =
+        width / 2;
+
+
+      const centerY =
+        height * 0.76;
+
+
+      const radius =
+        Math.min(
+          width * 0.39,
+          height * 0.56
+        );
+
+
+      const lineWidth =
+        Math.max(
+          28,
+          radius * 0.23
+        );
+
+
+      /* --------------------------------------------------------------
+         CONVERSIÓN DE VALOR A ÁNGULO
+
+         0 m³   = 180°
+         100 m³ = 270°
+         200 m³ = 360°
+         -------------------------------------------------------------- */
+
+      function valueToAngle(v){
+
+
+        const bounded =
+          Math.max(
+            0,
+            Math.min(
+              200,
+              v
+            )
+          );
+
+
+        return Math.PI +
+          (
+            bounded / 200
+          ) * Math.PI;
+
+      }
+
+
+      /* --------------------------------------------------------------
+         DIBUJAR TRAMOS DE COLOR
+         -------------------------------------------------------------- */
+
+      function drawArc(
+        startValue,
+        endValue,
+        color
+      ){
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+          centerX,
+          centerY,
+          radius,
+          valueToAngle(
+            startValue
+          ),
+          valueToAngle(
+            endValue
+          ),
+          false
+        );
+
+
+        ctx.strokeStyle =
+          color;
+
+
+        ctx.lineWidth =
+          lineWidth;
+
+
+        ctx.lineCap =
+          "butt";
+
+
+        ctx.stroke();
+
+      }
+
+
+      drawArc(
+        0,
+        80,
+        "#38a169"
+      );
+
+
+      drawArc(
+        80,
+        100,
+        "#e6b94a"
+      );
+
+
+      drawArc(
+        100,
+        200,
+        "#d95b55"
+      );
+
+
+      /* --------------------------------------------------------------
+         MARCAS PRINCIPALES
+         -------------------------------------------------------------- */
+
+      const marks =
+        [
+          0,
+          80,
+          100,
+          200
+        ];
+
+
+      ctx.font =
+        "12px Segoe UI, Arial";
+
+
+      ctx.fillStyle =
+        "#718397";
+
+
+      ctx.textAlign =
+        "center";
+
+
+      ctx.textBaseline =
+        "middle";
+
+
+      marks.forEach(
+        mark =>{
+
+
+          const angle =
+            valueToAngle(
+              mark
+            );
+
+
+          const labelRadius =
+            radius +
+            lineWidth * 0.80;
+
+
+          const x =
+            centerX +
+            Math.cos(
+              angle
+            ) *
+            labelRadius;
+
+
+          const y =
+            centerY +
+            Math.sin(
+              angle
+            ) *
+            labelRadius;
+
+
+          ctx.fillText(
+            mark,
+            x,
+            y
+          );
+
+        }
+      );
+
+
+      /* --------------------------------------------------------------
+         AGUJA
+         -------------------------------------------------------------- */
+
+      const displayValue =
+        value == null
+          ? 0
+          : Math.max(
+              0,
+              Math.min(
+                200,
+                value
+              )
+            );
+
+
+      const needleAngle =
+        valueToAngle(
+          displayValue
+        );
+
+
+      const needleLength =
+        radius * 0.78;
+
+
+      const needleX =
+        centerX +
+        Math.cos(
+          needleAngle
+        ) *
+        needleLength;
+
+
+      const needleY =
+        centerY +
+        Math.sin(
+          needleAngle
+        ) *
+        needleLength;
+
+
+      ctx.beginPath();
+
+
+      ctx.moveTo(
+        centerX,
+        centerY
+      );
+
+
+      ctx.lineTo(
+        needleX,
+        needleY
+      );
+
+
+      ctx.strokeStyle =
+        "#17324a";
+
+
+      ctx.lineWidth =
+        6;
+
+
+      ctx.lineCap =
+        "round";
+
+
+      ctx.stroke();
+
+
+      ctx.beginPath();
+
+
+      ctx.arc(
+        centerX,
+        centerY,
+        10,
+        0,
+        Math.PI * 2
+      );
+
+
+      ctx.fillStyle =
+        "#17324a";
+
+
+      ctx.fill();
+
+
+      /* --------------------------------------------------------------
+         VALOR CENTRAL DEL KPI
+
+         Tamaño ajustado para mantener consistencia con las demás
+         tarjetas del dashboard.
+         -------------------------------------------------------------- */
+
+      ctx.textAlign =
+        "center";
+
+
+      ctx.fillStyle =
+        "#17324a";
+
+
+      ctx.font =
+        "700 26px Segoe UI, Arial";
+
+
+      const text =
+        value == null
+          ? "Sin historial"
+          : value
+              .toLocaleString(
+                "es-CL",
+                {
+                  minimumFractionDigits:1,
+                  maximumFractionDigits:1
+                }
+              ) +
+            " m³";
+
+
+      ctx.fillText(
+        text,
+        centerX,
+        centerY + 54
+      );
+
+
+      ctx.font =
+        "13px Segoe UI, Arial";
+
+
+      ctx.fillStyle =
+        "#718397";
+
+
+      ctx.fillText(
+        "Consumo acumulado del mes",
+        centerX,
+        centerY + 78
+      );
+
+    }
+
+
+    /* ================================================================
+       GRÁFICO DE BARRAS GENÉRICO
+
+       Se reutiliza para:
+       - consumo diario
+       - consumo año móvil
+       ================================================================ */
+
+    function drawBarChart(
+      canvasId,
+      labels,
+      values,
+      options={}
+    ){
+
+
+      const canvas =
+        document.getElementById(
+          canvasId
+        );
+
+
+      const{
+        ctx,
+        width,
+        height
+      } =
+        prepareCanvas(
+          canvas
+        );
+
+
+      ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+
+      const pad ={
+
+        left:44,
+
+        right:12,
+
+        top:12,
+
+        bottom:32
+
+      };
+
+
+      const chartWidth =
+        width -
+        pad.left -
+        pad.right;
+
+
+      const chartHeight =
+        height -
+        pad.top -
+        pad.bottom;
+
+
+      const validValues =
+        values.filter(
+          v =>
+            v != null &&
+            Number.isFinite(
+              v
+            )
+        );
+
+
+      let maxValue =
+        validValues.length
+          ? Math.max(
+              ...validValues
+            )
+          : 1;
+
+
+      if(maxValue <= 0){
+
+        maxValue = 1;
+
+      }
+
+
+      maxValue *= 1.18;
+
+
+      /* --------------------------------------------------------------
+         LÍNEAS DE GRILLA
+         -------------------------------------------------------------- */
+
+      const gridLines =
+        4;
+
+
+      ctx.strokeStyle =
+        "#e7edf3";
+
+
+      ctx.lineWidth =
+        1;
+
+
+      ctx.fillStyle =
+        "#718397";
+
+
+      ctx.font =
+        "10px Segoe UI, Arial";
+
+
+      ctx.textAlign =
+        "right";
+
+
+      ctx.textBaseline =
+        "middle";
+
+
+      for(
+        let i=0;
+        i<=gridLines;
+        i++
+      ){
+
+
+        const ratio =
+          i / gridLines;
+
+
+        const y =
+          pad.top +
+          chartHeight *
+          ratio;
+
+
+        ctx.beginPath();
+
+
+        ctx.moveTo(
+          pad.left,
+          y
+        );
+
+
+        ctx.lineTo(
+          width -
+          pad.right,
+          y
+        );
+
+
+        ctx.stroke();
+
+
+        const axisValue =
+          maxValue *
+          (
+            1 -
+            ratio
+          );
+
+
+        ctx.fillText(
+          axisValue.toFixed(
+            1
+          ),
+          pad.left - 7,
+          y
+        );
+
+      }
+
+
+      /* --------------------------------------------------------------
+         BARRAS
+         -------------------------------------------------------------- */
+
+      const count =
+        Math.max(
+          1,
+          labels.length
+        );
+
+
+      const slotWidth =
+        chartWidth /
+        count;
+
+
+      const barWidth =
+        Math.max(
+          2,
+          Math.min(
+            24,
+            slotWidth * 0.62
+          )
+        );
+
+
+      values.forEach(
+        (
+          rawValue,
+          index
+        ) =>{
+
+
+          const value =
+            rawValue == null
+              ? 0
+              : rawValue;
+
+
+          const barHeight =
+            chartHeight *
+            (
+              value /
+              maxValue
+            );
+
+
+          const x =
+            pad.left +
+            index *
+            slotWidth +
+            (
+              slotWidth -
+              barWidth
+            ) / 2;
+
+
+          const y =
+            pad.top +
+            chartHeight -
+            barHeight;
+
+
+          ctx.fillStyle =
+            options.barColor ||
+            "#3f7eb8";
+
+
+          ctx.fillRect(
+            x,
+            y,
+            barWidth,
+            barHeight
+          );
+
+
+          /* ----------------------------------------------------------
+             ETIQUETAS DEL EJE X
+             ---------------------------------------------------------- */
+
+          const showEvery =
+            options.showEvery ||
+            1;
+
+
+          if(
+            index % showEvery === 0
+            ||
+            index === labels.length - 1
+          ){
+
+
+            ctx.fillStyle =
+              "#718397";
+
+
+            ctx.font =
+              "9px Segoe UI, Arial";
+
+
+            ctx.textAlign =
+              "center";
+
+
+            ctx.textBaseline =
+              "top";
+
+
+            ctx.fillText(
+              labels[index],
+              x +
+              barWidth / 2,
+              pad.top +
+              chartHeight +
+              7
+            );
+
+          }
+
+        }
+      );
+
+
+      /* --------------------------------------------------------------
+         MENSAJE CUANDO TODAVÍA NO EXISTE HISTORIAL
+         -------------------------------------------------------------- */
+
+      if(validValues.length === 0){
+
+
+        ctx.fillStyle =
+          "#718397";
+
+
+        ctx.font =
+          "13px Segoe UI, Arial";
+
+
+        ctx.textAlign =
+          "center";
+
+
+        ctx.textBaseline =
+          "middle";
+
+
+        ctx.fillText(
+          "Sin historial suficiente",
+          pad.left +
+          chartWidth / 2,
+          pad.top +
+          chartHeight / 2
+        );
+
+      }
+
+    }
+
+
+    /* ================================================================
+       VARIABLE GLOBAL QUE CONSERVA LA ÚLTIMA ANALÍTICA
+
+       Se utiliza para redibujar los gráficos cuando cambia
+       el tamaño de la ventana.
+       ================================================================ */
+
+    let lastAnalytics =
+      null;
+
+
+    /* ================================================================
+       CARGAR DATOS PRINCIPALES DEL DASHBOARD
+       ================================================================ */
+
+    async function load(){
+
+
+      const response =
+        await fetch(
+          "/api/devices"
+        );
+
+
+      if(!response.ok){
+
+        return;
+
+      }
+
+
+      const devices =
+        await response.json();
+
+
+      /* --------------------------------------------------------------
+         BUSCAR EL SENSOR PRINCIPAL PUL 1
+         -------------------------------------------------------------- */
+
+      const pul =
+        devices.find(
+          d =>
+            d.device_name ===
+            "PUL 1"
+        ) ||
+        devices[0];
+
+
+      if(!pul){
+
+
+        updateStatus(
+          null
+        );
+
+
+        return;
+
+      }
+
+
+      /* --------------------------------------------------------------
+         LECTURA ACUMULADA DEL MEDIDOR
+         -------------------------------------------------------------- */
+
+      if(pul.water != null){
+
+
+        const m3 =
+          (
+            pul.water /
+            1000
+          ).toLocaleString(
+            "es-CL",
+            {
+              minimumFractionDigits:1,
+              maximumFractionDigits:3
+            }
+          );
+
+
+        document.getElementById(
+          "water"
+        ).textContent =
+          m3;
+
+      }
+
+
+      /* --------------------------------------------------------------
+         CONSUMO ÚLTIMAS 24 HORAS
+         -------------------------------------------------------------- */
+
+      if(
+        pul.water_24h_m3 != null
+      ){
+
+
+        document.getElementById(
+          "waterCard"
+        ).textContent =
+
+          pul.water_24h_m3
+            .toLocaleString(
+              "es-CL",
+              {
+                minimumFractionDigits:1,
+                maximumFractionDigits:3
+              }
+            ) +
+          " m³";
+
+
+      }else{
+
+
+        document.getElementById(
+          "waterCard"
+        ).textContent =
+          "Sin historial suficiente";
+
+      }
+
+
+      /* --------------------------------------------------------------
+         TEMPERATURA
+         -------------------------------------------------------------- */
+
+      document.getElementById(
+        "temp"
+      ).textContent =
+
+        pul.temperature != null
+          ? pul.temperature +
+            " °C"
+          : "—";
+
+
+      /* --------------------------------------------------------------
+         HUMEDAD
+         -------------------------------------------------------------- */
+
+      document.getElementById(
+        "hum"
+      ).textContent =
+
+        pul.humidity != null
+          ? pul.humidity +
+            " %"
+          : "—";
+
+
+      /* --------------------------------------------------------------
+         FECHA DE ÚLTIMA COMUNICACIÓN GENERAL
+         -------------------------------------------------------------- */
+
+      document.getElementById(
+        "lastSeen"
+      ).textContent =
+        dateCL(
+          pul.last_seen
+        );
+
+
+      updateStatus(
+        pul.last_seen
+      );
+
+
+      /* --------------------------------------------------------------
+         FECHAS DE ÚLTIMA ACTUALIZACIÓN POR VARIABLE
+         -------------------------------------------------------------- */
+
+      document.getElementById(
+        "waterLastSeen"
+      ).textContent =
+        dateCL(
+          pul.water_ts ||
+          pul.last_seen
+        );
+
+
+      document.getElementById(
+        "tempLastSeen"
+      ).textContent =
+        dateCL(
+          pul.temperature_ts ||
+          pul.last_seen
+        );
+
+
+      document.getElementById(
+        "humLastSeen"
+      ).textContent =
+        dateCL(
+          pul.humidity_ts ||
+          pul.last_seen
+        );
+
+
+      /* --------------------------------------------------------------
+         CARGAR ANALÍTICA
+         -------------------------------------------------------------- */
+
+      const analyticsResponse =
+        await fetch(
+          "/api/analytics/" +
+          encodeURIComponent(
+            pul.dev_eui
+          )
+        );
+
+
+      if(
+        analyticsResponse.ok
+      ){
+
+
+        lastAnalytics =
+          await analyticsResponse.json();
+
+
+        renderAnalytics(
+          lastAnalytics
+        );
+
+      }
+
+    }
+
+
+    /* ================================================================
+       RENDERIZAR LOS TRES GRÁFICOS
+       ================================================================ */
+
+    function renderAnalytics(data){
+
+
+      /* --------------------------------------------------------------
+         KPI DEL MES
+         -------------------------------------------------------------- */
+
+      drawGauge(
+        data.current_month_m3
+      );
+
+
+      /* --------------------------------------------------------------
+         GRÁFICO DIARIO
+         -------------------------------------------------------------- */
+
+      const dailyLabels =
+        data.daily_current_month.map(
+          item =>
+            String(
+              item.day
+            )
+        );
+
+
+      const dailyValues =
+        data.daily_current_month.map(
+          item =>
+            item.value
+        );
+
+
+      const showEveryDaily =
+        dailyLabels.length > 20
+          ? 3
+          : 1;
+
+
+      drawBarChart(
+        "dailyChart",
+        dailyLabels,
+        dailyValues,
+        {
+          barColor:
+            "#3f7eb8",
+
+          showEvery:
+            showEveryDaily
+        }
+      );
+
+
+      /* --------------------------------------------------------------
+         GRÁFICO AÑO MÓVIL
+         -------------------------------------------------------------- */
+
+      const monthlyLabels =
+        data.rolling_12_months.map(
+          item =>
+            item.label
+        );
+
+
+      const monthlyValues =
+        data.rolling_12_months.map(
+          item =>
+            item.value
+        );
+
+
+      drawBarChart(
+        "monthlyChart",
+        monthlyLabels,
+        monthlyValues,
+        {
+          barColor:
+            "#607d9d",
+
+          showEvery:
+            1
+        }
+      );
+
+    }
+
+
+    /* ================================================================
+       REDIBUJAR GRÁFICOS AL CAMBIAR EL TAMAÑO DE LA VENTANA
+       ================================================================ */
+
+    let resizeTimer =
+      null;
+
+
+    window.addEventListener(
+      "resize",
+      () =>{
+
+
+        clearTimeout(
+          resizeTimer
+        );
+
+
+        resizeTimer =
+          setTimeout(
+            () =>{
+
+
+              if(lastAnalytics){
+
+
+                renderAnalytics(
+                  lastAnalytics
+                );
+
+              }
+
+            },
+            180
+          );
+
+      }
+    );
+
+
+    /* ================================================================
+       PRIMERA CARGA
+       ================================================================ */
+
+    load();
+
+
+    /* ================================================================
+       ACTUALIZACIÓN AUTOMÁTICA CADA 5 SEGUNDOS
+       ================================================================ */
+
+    setInterval(
+      load,
+      5000
+    );
+
+  </script>
+
+</body>
+
+</html>
