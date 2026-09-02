@@ -1,42 +1,273 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Flow Control - Las Añañucas</title>
-<style>
-:root{--bg:#f5f8fb;--card:#fff;--ink:#17324a;--muted:#718397;--line:#dce6ee;--danger:#c94b45;--shadow:0 10px 30px rgba(35,65,95,.08)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif}.topbar{height:74px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px}.brand{display:flex;align-items:center;gap:10px;font-weight:800}.brand-text{white-space:nowrap}.logo-brics{width:92px;height:auto;object-fit:contain;display:block}.user{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:14px}.user a{color:var(--muted);text-decoration:none}
-main{padding:30px 34px 44px;max-width:1380px;margin:0 auto}.heading{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.heading h1{margin:0 0 6px;font-size:28px}.heading p{margin:0;color:var(--muted)}.pill{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;color:var(--muted)}
-.hero{background:linear-gradient(120deg,#fff,#f7fbfe);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.45fr .8fr;gap:24px;margin-bottom:18px}.eyebrow,.label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}.meter-name{font-size:20px;font-weight:800;margin:8px 0 16px}.big{font-size:58px;font-weight:850;letter-spacing:-.04em}.big small{font-size:22px;color:var(--muted)}.caption,.sub{color:var(--muted);font-size:13px;margin-top:8px}.statusbox{border-left:1px solid var(--line);padding-left:24px;display:flex;flex-direction:column;justify-content:center}.statusline{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;margin-bottom:8px}.dot{width:11px;height:11px;border-radius:50%;background:var(--danger)}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:18px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}.value{font-size:30px;font-weight:800;margin-top:7px}
-.analytics-panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.1fr 1fr;gap:22px;margin-bottom:18px}.analytics-right{min-width:0;display:grid;grid-template-rows:1fr 1fr;gap:16px}.chart-box{border:1px solid #edf2f7;border-radius:14px;padding:14px 14px 10px;background:#fff;min-height:220px}.chart-title{font-size:13px;font-weight:800;margin-bottom:4px}.chart-subtitle{font-size:11px;color:var(--muted);margin-bottom:10px}.gauge-box{display:flex;flex-direction:column;height:100%;min-height:456px}.gauge-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:330px}.gauge-wrap canvas{width:100%;max-width:520px;height:300px}.bar-canvas{width:100%;height:165px;display:block}.legend-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;font-size:11px;color:var(--muted)}.legend-item{display:flex;align-items:center;gap:6px}.legend-swatch{width:10px;height:10px;border-radius:3px}
-@media(max-width:1000px){.analytics-panel{grid-template-columns:1fr}.analytics-right{grid-template-rows:auto}.gauge-box{min-height:390px}}@media(max-width:900px){main{padding:22px 18px}.hero{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}.statusbox{border-left:0;border-top:1px solid var(--line);padding:18px 0 0}.topbar{padding:0 18px}.logo-brics{width:78px}}
-</style>
-</head>
-<body>
-<div class="topbar"><div class="brand"><span class="brand-text">Flow Control, by</span><img class="logo-brics" src="/static/logo-brics21.jpg" alt="BRICS21"></div><div class="user"><span></span><a href="/logout">Cerrar Sesión</a></div></div>
-<main>
-<div class="heading"><div><h1>Monitoreo Remoto Medidores Las Añañucas</h1><p>Medidor Agua de Riego Parcela 64</p></div><div class="pill">Reserva Las Añañucas, Limache</div></div>
-<section class="hero"><div><div class="eyebrow">Medidor TECNIDRO TW50 R1506740</div><div class="meter-name">Agua de Riego, Parcela 64</div><div class="big"><span id="water">—</span> <small>m³</small></div><div class="caption">Última lectura real registrada por el sistema</div></div><div class="statusbox"><div class="statusline"><span class="dot" id="statusDot"></span><span id="connectionStatus">Esperando datos...</span></div><div class="sub">Última comunicación: <b id="lastSeen">—</b><br>Estado del dato: <b id="dataStatus">—</b></div></div></section>
-<section class="grid3">
-<div class="card"><div class="label">Consumo últimas 24 horas</div><div class="value" id="waterCard">—</div><div class="sub">Última comunicación: <span id="waterLastSeen">—</span></div></div>
-<div class="card"><div class="label">Temperatura Actual</div><div class="value" id="temp">—</div><div class="sub">Última comunicación: <span id="tempLastSeen">—</span></div></div>
-<div class="card"><div class="label">Humedad Relativa del Aire</div><div class="value" id="hum">—</div><div class="sub">Última comunicación: <span id="humLastSeen">—</span></div></div>
-</section>
-<section class="analytics-panel">
-<div class="chart-box gauge-box"><div class="chart-title">Consumo del mes en curso</div><div class="chart-subtitle">Meta sin cobro adicional: hasta 100 m³</div><div class="gauge-wrap"><canvas id="gaugeCanvas"></canvas></div><div class="legend-row"><div class="legend-item"><span class="legend-swatch" style="background:#38a169"></span>0–80 m³</div><div class="legend-item"><span class="legend-swatch" style="background:#e6b94a"></span>80–100 m³</div><div class="legend-item"><span class="legend-swatch" style="background:#d95b55"></span>100–200 m³</div></div></div>
-<div class="analytics-right"><div class="chart-box"><div class="chart-title">Consumo diario del mes en curso</div><div class="chart-subtitle">Cada barra representa un día del mes</div><canvas class="bar-canvas" id="dailyChart"></canvas></div><div class="chart-box"><div class="chart-title">Consumo año móvil</div><div class="chart-subtitle">Últimos 12 meses</div><canvas class="bar-canvas" id="monthlyChart"></canvas></div></div>
-</section>
-</main>
-<script>
-function dateCL(v){return v?new Date(v).toLocaleString("es-CL"):"—"}
-function updateStatus(lastSeen){const connectionStatus=document.getElementById("connectionStatus"),dataStatus=document.getElementById("dataStatus"),statusDot=document.getElementById("statusDot");if(!lastSeen){connectionStatus.textContent="Desconectado";dataStatus.textContent="Sin datos";statusDot.style.background="#c94b45";return}const diffMinutes=Math.max(0,(new Date()-new Date(lastSeen))/60000);if(diffMinutes<16){connectionStatus.textContent="Conectado";statusDot.style.background="#24876e"}else{connectionStatus.textContent="Desconectado";statusDot.style.background="#c94b45"}if(diffMinutes<6)dataStatus.textContent="Dato actualizado";else if(diffMinutes<16)dataStatus.textContent="Último valor conocido";else dataStatus.textContent="Sin datos"}
-function prep(canvas){const rect=canvas.getBoundingClientRect(),ratio=window.devicePixelRatio||1,w=Math.max(300,Math.round(rect.width)),h=Math.max(150,Math.round(rect.height));canvas.width=w*ratio;canvas.height=h*ratio;const ctx=canvas.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);return{ctx,w,h}}
-function drawGauge(value){const c=document.getElementById("gaugeCanvas"),{ctx,w,h}=prep(c);ctx.clearRect(0,0,w,h);const cx=w/2,cy=h*.76,r=Math.min(w*.39,h*.56),lw=Math.max(28,r*.23);const angle=v=>Math.PI+(Math.max(0,Math.min(200,v))/200)*Math.PI;function arc(a,b,color){ctx.beginPath();ctx.arc(cx,cy,r,angle(a),angle(b));ctx.strokeStyle=color;ctx.lineWidth=lw;ctx.lineCap="butt";ctx.stroke()}arc(0,80,"#38a169");arc(80,100,"#e6b94a");arc(100,200,"#d95b55");ctx.fillStyle="#718397";ctx.font="12px Segoe UI";ctx.textAlign="center";[0,80,100,200].forEach(m=>{const aa=angle(m),rr=r+lw*.8;ctx.fillText(m,cx+Math.cos(aa)*rr,cy+Math.sin(aa)*rr)});const dv=value==null?0:Math.max(0,Math.min(200,value)),na=angle(dv);ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(na)*r*.78,cy+Math.sin(na)*r*.78);ctx.strokeStyle="#17324a";ctx.lineWidth=6;ctx.lineCap="round";ctx.stroke();ctx.beginPath();ctx.arc(cx,cy,10,0,Math.PI*2);ctx.fillStyle="#17324a";ctx.fill();ctx.font="700 29px Segoe UI";ctx.fillStyle="#17324a";ctx.fillText(value==null?"Sin historial":value.toLocaleString("es-CL",{minimumFractionDigits:1,maximumFractionDigits:1})+" m³",cx,cy+54);ctx.font="12px Segoe UI";ctx.fillStyle="#718397";ctx.fillText("Consumo acumulado del mes",cx,cy+78)}
-function drawBars(id,labels,values,color){const c=document.getElementById(id),{ctx,w,h}=prep(c);ctx.clearRect(0,0,w,h);const p={l:44,r:12,t:12,b:32},cw=w-p.l-p.r,ch=h-p.t-p.b,valid=values.filter(v=>v!=null&&Number.isFinite(v));let max=valid.length?Math.max(...valid):1;if(max<=0)max=1;max*=1.18;ctx.strokeStyle="#e7edf3";ctx.fillStyle="#718397";ctx.font="10px Segoe UI";ctx.textAlign="right";for(let i=0;i<=4;i++){const y=p.t+ch*i/4;ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(w-p.r,y);ctx.stroke();ctx.fillText((max*(1-i/4)).toFixed(1),p.l-7,y+3)}const slot=cw/Math.max(1,labels.length),bw=Math.max(2,Math.min(24,slot*.62));values.forEach((raw,i)=>{const v=raw==null?0:raw,bh=ch*(v/max),x=p.l+i*slot+(slot-bw)/2,y=p.t+ch-bh;ctx.fillStyle=color;ctx.fillRect(x,y,bw,bh);const every=labels.length>20?3:1;if(i%every===0||i===labels.length-1){ctx.fillStyle="#718397";ctx.font="9px Segoe UI";ctx.textAlign="center";ctx.fillText(labels[i],x+bw/2,p.t+ch+17)}});if(!valid.length){ctx.fillStyle="#718397";ctx.font="13px Segoe UI";ctx.textAlign="center";ctx.fillText("Sin historial suficiente",p.l+cw/2,p.t+ch/2)}}
-let lastAnalytics=null;function renderAnalytics(a){drawGauge(a.current_month_m3);drawBars("dailyChart",a.daily_current_month.map(x=>String(x.day)),a.daily_current_month.map(x=>x.value),"#3f7eb8");drawBars("monthlyChart",a.rolling_12_months.map(x=>x.label),a.rolling_12_months.map(x=>x.value),"#607d9d")}
-async function load(){const r=await fetch("/api/devices");if(!r.ok)return;const ds=await r.json(),pul=ds.find(d=>d.device_name==="PUL 1")||ds[0];if(!pul){updateStatus(null);return}if(pul.water!=null)document.getElementById("water").textContent=(pul.water/1000).toLocaleString("es-CL",{minimumFractionDigits:1,maximumFractionDigits:3});document.getElementById("waterCard").textContent=pul.water_24h_m3!=null?pul.water_24h_m3.toLocaleString("es-CL",{minimumFractionDigits:1,maximumFractionDigits:3})+" m³":"Sin historial suficiente";document.getElementById("temp").textContent=pul.temperature!=null?pul.temperature+" °C":"—";document.getElementById("hum").textContent=pul.humidity!=null?pul.humidity+" %":"—";document.getElementById("lastSeen").textContent=dateCL(pul.last_seen);updateStatus(pul.last_seen);document.getElementById("waterLastSeen").textContent=dateCL(pul.water_ts||pul.last_seen);document.getElementById("tempLastSeen").textContent=dateCL(pul.temperature_ts||pul.last_seen);document.getElementById("humLastSeen").textContent=dateCL(pul.humidity_ts||pul.last_seen);const ar=await fetch("/api/analytics/"+encodeURIComponent(pul.dev_eui));if(ar.ok){lastAnalytics=await ar.json();renderAnalytics(lastAnalytics)}}
-let rt=null;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{if(lastAnalytics)renderAnalytics(lastAnalytics)},180)});load();setInterval(load,5000);
-</script>
-</body></html>
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session
+import sqlite3, json, os
+from datetime import datetime, timezone, timedelta
+from zoneinfo import ZoneInfo
+
+app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "demo-change-this-secret-key")
+DB = os.environ.get("DB_PATH", os.path.join(os.path.dirname(__file__), "iot.db"))
+DEMO_USER = os.environ.get("DEMO_USER", "demo")
+DEMO_PASSWORD = os.environ.get("DEMO_PASSWORD", "demo123")
+CHILE_TZ = ZoneInfo("America/Santiago")
+
+
+def db():
+    con = sqlite3.connect(DB)
+    con.row_factory = sqlite3.Row
+    return con
+
+
+def init_db():
+    con = db()
+    con.execute("""CREATE TABLE IF NOT EXISTS readings(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ts TEXT NOT NULL,
+        application_name TEXT,
+        device_name TEXT,
+        dev_eui TEXT,
+        device_profile_name TEXT,
+        temperature REAL,
+        humidity REAL,
+        water REAL,
+        pulse_conv REAL,
+        water_conv REAL,
+        battery REAL,
+        rssi REAL,
+        snr REAL,
+        gateway_id TEXT,
+        raw_json TEXT
+    )""")
+    con.commit()
+    con.close()
+
+
+def insert_payload(payload):
+    info = payload.get("deviceInfo") or {}
+    obj = payload.get("object") or {}
+    rx = (payload.get("rxInfo") or [{}])[0] or {}
+    row = {
+        "ts": payload.get("time") or datetime.now(timezone.utc).isoformat(),
+        "application_name": info.get("applicationName"),
+        "device_name": info.get("deviceName"),
+        "dev_eui": info.get("devEui"),
+        "device_profile_name": info.get("deviceProfileName"),
+        "temperature": obj.get("temperature"),
+        "humidity": obj.get("humidity"),
+        "water": obj.get("water"),
+        "pulse_conv": obj.get("pulse_conv"),
+        "water_conv": obj.get("water_conv"),
+        "battery": obj.get("battery"),
+        "rssi": rx.get("rssi"),
+        "snr": rx.get("snr"),
+        "gateway_id": rx.get("gatewayId"),
+        "raw_json": json.dumps(payload, ensure_ascii=False),
+    }
+    con = db()
+    con.execute("""INSERT INTO readings(
+        ts,application_name,device_name,dev_eui,device_profile_name,
+        temperature,humidity,water,pulse_conv,water_conv,battery,rssi,snr,gateway_id,raw_json
+    ) VALUES(
+        :ts,:application_name,:device_name,:dev_eui,:device_profile_name,
+        :temperature,:humidity,:water,:pulse_conv,:water_conv,:battery,:rssi,:snr,:gateway_id,:raw_json
+    )""", row)
+    con.commit()
+    con.close()
+
+
+def seed_demo():
+    con = db()
+    n = con.execute("SELECT COUNT(*) n FROM readings").fetchone()["n"]
+    con.close()
+    if n:
+        return
+    insert_payload({
+        "time":"2026-08-29T03:00:00+00:00",
+        "deviceInfo":{"applicationName":"Prueba Pulso Milesight","deviceProfileName":"Milesight Neering EM300-DI","deviceName":"PUL 1","devEui":"24e1241360605391"},
+        "object":{"pulse_conv":1,"water_conv":100,"water":480700},
+        "rxInfo":[{"gatewayId":"c0ba1ffffe003172","rssi":-113,"snr":-13.8}]
+    })
+    insert_payload({
+        "time":"2026-08-29T03:01:16+00:00",
+        "deviceInfo":{"applicationName":"Prueba Pulso Milesight","deviceProfileName":"Milesight Neering EM300-DI","deviceName":"PUL 1","devEui":"24e1241360605391"},
+        "object":{"battery":95,"temperature":16.3,"humidity":58.0},
+        "rxInfo":[{"gatewayId":"c0ba1ffffe003172","rssi":-108,"snr":-15.2}]
+    })
+
+
+@app.route("/webhook", methods=["POST"])
+def webhook():
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return jsonify({"ok":False,"error":"JSON requerido"}),400
+    insert_payload(payload)
+    return jsonify({"ok":True})
+
+
+@app.route("/login", methods=["GET","POST"])
+def login():
+    if request.method == "POST":
+        if request.form.get("username") == DEMO_USER and request.form.get("password") == DEMO_PASSWORD:
+            session["auth"] = True
+            return redirect(url_for("home"))
+        return render_template("login.html", error="Usuario o contraseña incorrectos.")
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
+
+
+@app.route("/")
+def home():
+    if session.get("auth") is not True:
+        return redirect(url_for("login"))
+    return render_template("index.html")
+
+
+def latest_non_null(con, dev_eui, field):
+    row = con.execute(f"""SELECT {field} value, ts FROM readings
+        WHERE dev_eui=? AND {field} IS NOT NULL ORDER BY id DESC LIMIT 1""",(dev_eui,)).fetchone()
+    return (row["value"],row["ts"]) if row else (None,None)
+
+
+def parse_datetime(value):
+    if not value:
+        return None
+    try:
+        dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt
+    except (ValueError, TypeError):
+        return None
+
+
+def calculate_water_24h(con, dev_eui):
+    latest = con.execute("""SELECT water, ts FROM readings
+        WHERE dev_eui=? AND water IS NOT NULL ORDER BY id DESC LIMIT 1""", (dev_eui,)).fetchone()
+    if not latest:
+        return None
+    latest_time = parse_datetime(latest["ts"])
+    if latest_time is None:
+        return None
+    target_time = latest_time - timedelta(hours=24)
+    rows = con.execute("""SELECT water, ts FROM readings
+        WHERE dev_eui=? AND water IS NOT NULL AND ts != ? ORDER BY id DESC""", (dev_eui, latest["ts"])).fetchall()
+    best_row = None
+    best_difference = None
+    for row in rows:
+        row_time = parse_datetime(row["ts"])
+        if row_time is None or row_time >= latest_time:
+            continue
+        difference = abs((row_time-target_time).total_seconds())
+        if best_difference is None or difference < best_difference:
+            best_row = row
+            best_difference = difference
+    if best_row is None:
+        return None
+    previous_time = parse_datetime(best_row["ts"])
+    elapsed_hours = (latest_time-previous_time).total_seconds()/3600
+    if elapsed_hours < 20 or elapsed_hours > 28:
+        return None
+    consumption_liters = latest["water"] - best_row["water"]
+    if consumption_liters < 0:
+        return None
+    return round(consumption_liters/1000, 3)
+
+
+def add_months(year, month, delta):
+    absolute = year * 12 + (month - 1) + delta
+    return absolute // 12, absolute % 12 + 1
+
+
+def analytics_for_device(con, dev_eui):
+    rows = con.execute("""SELECT water, ts FROM readings
+        WHERE dev_eui=? AND water IS NOT NULL ORDER BY id ASC""", (dev_eui,)).fetchall()
+
+    parsed = []
+    for row in rows:
+        dt = parse_datetime(row["ts"])
+        if dt is None:
+            continue
+        parsed.append({"water":row["water"], "dt_cl":dt.astimezone(CHILE_TZ)})
+
+    now_cl = datetime.now(timezone.utc).astimezone(CHILE_TZ)
+    next_y, next_m = add_months(now_cl.year, now_cl.month, 1)
+    first_this = datetime(now_cl.year, now_cl.month, 1, tzinfo=CHILE_TZ)
+    first_next = datetime(next_y, next_m, 1, tzinfo=CHILE_TZ)
+    total_days = (first_next.date() - first_this.date()).days
+    daily_map = {day:0.0 for day in range(1,total_days+1)}
+
+    rolling = []
+    for offset in range(-11,1):
+        y,m = add_months(now_cl.year, now_cl.month, offset)
+        rolling.append({"key":f"{y:04d}-{m:02d}","year":y,"month":m,"value":0.0,"has_data":False})
+    rolling_map = {x["key"]:x for x in rolling}
+
+    for previous,current in zip(parsed, parsed[1:]):
+        delta_liters = current["water"] - previous["water"]
+        if delta_liters < 0:
+            continue
+        delta_m3 = delta_liters/1000.0
+        dt = current["dt_cl"]
+        key = f"{dt.year:04d}-{dt.month:02d}"
+        if key in rolling_map:
+            rolling_map[key]["value"] += delta_m3
+            rolling_map[key]["has_data"] = True
+        if dt.year == now_cl.year and dt.month == now_cl.month:
+            daily_map[dt.day] += delta_m3
+
+    current_key = f"{now_cl.year:04d}-{now_cl.month:02d}"
+    current = rolling_map[current_key]
+    current_month_m3 = round(current["value"],3) if current["has_data"] else None
+    daily = [{"day":day,"value":round(daily_map[day],3)} for day in range(1,total_days+1)]
+    month_names = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
+    monthly = [{"label":f"{month_names[x['month']-1]} {str(x['year'])[-2:]}","value":round(x["value"],3) if x["has_data"] else None} for x in rolling]
+    return {"current_month_m3":current_month_m3,"daily_current_month":daily,"rolling_12_months":monthly}
+
+
+@app.route("/api/devices")
+def devices():
+    if session.get("auth") is not True:
+        return jsonify({"error":"unauthorized"}),401
+    con = db()
+    devs = con.execute("SELECT dev_eui, MAX(id) max_id FROM readings WHERE dev_eui IS NOT NULL GROUP BY dev_eui").fetchall()
+    fields = ["temperature","humidity","water","pulse_conv","water_conv","battery","rssi","snr","gateway_id"]
+    out=[]
+    for d in devs:
+        meta = con.execute("SELECT * FROM readings WHERE id=?",(d["max_id"],)).fetchone()
+        if not meta:
+            continue
+        item={"dev_eui":d["dev_eui"],"device_name":meta["device_name"],"application_name":meta["application_name"],
+              "device_profile_name":meta["device_profile_name"],"last_seen":meta["ts"]}
+        for f in fields:
+            item[f], item[f+"_ts"] = latest_non_null(con,d["dev_eui"],f)
+        item["water_m3"] = round(item["water"]/1000,3) if item["water"] is not None else None
+        item["water_24h_m3"] = calculate_water_24h(con,d["dev_eui"])
+        out.append(item)
+    con.close()
+    return jsonify(out)
+
+
+@app.route("/api/analytics/<dev_eui>")
+def analytics(dev_eui):
+    if session.get("auth") is not True:
+        return jsonify({"error":"unauthorized"}),401
+    con = db()
+    result = analytics_for_device(con, dev_eui)
+    con.close()
+    return jsonify(result)
+
+
+@app.route("/api/health")
+def health():
+    return jsonify({"ok":True})
+
+
+init_db()
+seed_demo()
+
+if __name__=="__main__":
+    app.run(host="0.0.0.0",port=int(os.environ.get("PORT",5000)),debug=True)
