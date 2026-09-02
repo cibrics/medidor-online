@@ -39,16 +39,17 @@ body{
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-weight:800
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:800;
 }
 
 .logo{
-  width:42px;
-  height:42px;
-  object-fit:contain
+    width:95px;
+    height:auto;
+    object-fit:contain;
+    display:block;
 }
 
 .user{
@@ -266,10 +267,15 @@ main{
 
   <div class="brand">
 
-    <!-- EDITAR: reemplaza logo-demo.svg por tu logo -->
-    <img class="logo" src="/static/logo-brics21.jpg" alt="Logo">
+    <span>
+      Flow Control, by
+    </span>
 
-    <span>Flow Control, by BRICS21</span>
+    <img
+      class="logo"
+      src="/static/logo-brics21.png"
+      alt="BRICS21"
+    >
 
   </div>
 
@@ -295,14 +301,14 @@ main{
 
     <div>
 
-      <h1>Monitoreo Remoto Medidores Las Añañucas</h1>
+      <h1>Parcela 64: Medidor Agua de Riego</h1>
 
-      <p>Medidor Agua de Riego Parcela 64</p>
+      <p>#Cliente FlowControl: 1517-8</p>
 
     </div>
 
     <div class="pill">
-      Reserva Las Añañucas, Limache
+      Propietario: Cristián Ibieta/Fernanda Esteban
     </div>
 
   </div>
@@ -325,7 +331,7 @@ main{
       Ya no se muestra "PUL 1 · Prueba Pulso Milesight".
       -->
       <div class="meter-name">
-        Agua de Riego, Parcela 64
+       Lectura Medidor:
       </div>
 
       <!-- AUTOMÁTICO: lectura del medidor -->
