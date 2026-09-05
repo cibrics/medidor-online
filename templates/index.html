@@ -1442,6 +1442,22 @@
 
         <div class="top-actions">
 
+          <div
+            class="parcel-chip"
+            style="background:#fff7dc;border-color:#f1df9d;"
+          >
+
+            <strong>
+              DEMO
+            </strong>
+
+            <span>
+              Valores simulados
+            </span>
+
+          </div>
+
+
           <div class="parcel-chip">
 
             <strong>
@@ -2197,6 +2213,280 @@
 
 
   <script>
+
+
+
+    /* ================================================================
+       MODO DEMO
+
+       Esta versión NO consulta datos reales desde /api/devices ni desde
+       /api/analytics. Todos los valores de consumo que se muestran son
+       simulados únicamente para presentar visualmente Flow Control.
+
+       Cuando quieras volver a la versión productiva, utiliza nuevamente
+       el index conectado al app.py.
+       ================================================================ */
+
+    const DEMO_MODE =
+      true;
+
+
+    /* ================================================================
+       DATOS SIMULADOS DE LA DEMO
+
+       Escenario:
+       - Fecha de referencia: mes actual del navegador.
+       - Consumo total acumulado: 12,2 m³.
+       - Agua potable: 3,2 m³.
+       - Agua de riego: 9,0 m³.
+       - Ambos medidores aparecen conectados.
+       ================================================================ */
+
+    function buildDemoData(){
+
+
+      const now =
+        new Date();
+
+
+      const nowIso =
+        now.toISOString();
+
+
+      /* --------------------------------------------------------------
+         HISTORIAL DIARIO DEL MES EN CURSO
+
+         Los primeros días contienen consumo ficticio.
+         El resto del mes queda en cero.
+         -------------------------------------------------------------- */
+
+      const daysInMonth =
+        new Date(
+          now.getFullYear(),
+          now.getMonth() + 1,
+          0
+        )
+        .getDate();
+
+
+      const potableDailyValues = [
+        0.72,
+        0.81,
+        0.78,
+        0.89
+      ];
+
+
+      const riegoDailyValues = [
+        2.10,
+        2.35,
+        2.05,
+        2.50
+      ];
+
+
+      const potableDaily = [];
+
+      const riegoDaily = [];
+
+
+      for(
+        let day=1;
+        day<=daysInMonth;
+        day++
+      ){
+
+
+        potableDaily.push({
+
+          day:day,
+
+          value:
+            potableDailyValues[
+              day - 1
+            ] ??
+            0
+
+        });
+
+
+        riegoDaily.push({
+
+          day:day,
+
+          value:
+            riegoDailyValues[
+              day - 1
+            ] ??
+            0
+
+        });
+
+      }
+
+
+      /* --------------------------------------------------------------
+         HISTORIAL MENSUAL SIMULADO DE LOS ÚLTIMOS 12 MESES
+         -------------------------------------------------------------- */
+
+      const monthNames = [
+        "Oct",
+        "Nov",
+        "Dic",
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep"
+      ];
+
+
+      const potableMonthlyValues = [
+        16.8,
+        17.4,
+        19.1,
+        20.2,
+        18.7,
+        17.9,
+        15.8,
+        14.6,
+        13.9,
+        14.8,
+        15.5,
+        3.2
+      ];
+
+
+      const riegoMonthlyValues = [
+        48.5,
+        55.3,
+        72.0,
+        79.4,
+        68.2,
+        54.6,
+        42.1,
+        31.4,
+        24.7,
+        28.9,
+        39.8,
+        9.0
+      ];
+
+
+      const potableMonthly =
+        monthNames.map(
+          (
+            label,
+            index
+          ) => ({
+
+            label:label,
+
+            value:
+              potableMonthlyValues[index]
+
+          })
+        );
+
+
+      const riegoMonthly =
+        monthNames.map(
+          (
+            label,
+            index
+          ) => ({
+
+            label:label,
+
+            value:
+              riegoMonthlyValues[index]
+
+          })
+        );
+
+
+      return{
+
+        potableDevice:{
+
+          device_name:
+            "AP 64",
+
+          application_name:
+            "Flow Control Demo",
+
+          device_profile_name:
+            "Sensus 405S",
+
+          dev_eui:
+            "DEMO-POTABLE-64",
+
+          last_seen:
+            nowIso,
+
+          water_24h_m3:
+            0.96
+
+        },
+
+
+        riegoDevice:{
+
+          device_name:
+            "PUL 1",
+
+          application_name:
+            "Flow Control Demo",
+
+          device_profile_name:
+            "TECNIDRO TW DN50",
+
+          dev_eui:
+            "DEMO-RIEGO-64",
+
+          last_seen:
+            nowIso,
+
+          water_24h_m3:
+            2.74
+
+        },
+
+
+        potableAnalytics:{
+
+          current_month_m3:
+            3.2,
+
+          daily_current_month:
+            potableDaily,
+
+          rolling_12_months:
+            potableMonthly
+
+        },
+
+
+        riegoAnalytics:{
+
+          current_month_m3:
+            9.0,
+
+          daily_current_month:
+            riegoDaily,
+
+          rolling_12_months:
+            riegoMonthly
+
+        }
+
+      };
+
+    }
 
 
     /* ================================================================
@@ -3632,6 +3922,80 @@
 
     async function load(){
 
+
+      /* --------------------------------------------------------------
+         MODO DEMO:
+         no se consulta /api/devices ni /api/analytics.
+         -------------------------------------------------------------- */
+
+      if(DEMO_MODE){
+
+
+        const demoData =
+          buildDemoData();
+
+
+        dashboardData
+          .potableDevice =
+          demoData
+            .potableDevice;
+
+
+        dashboardData
+          .riegoDevice =
+          demoData
+            .riegoDevice;
+
+
+        dashboardData
+          .potableAnalytics =
+          demoData
+            .potableAnalytics;
+
+
+        dashboardData
+          .riegoAnalytics =
+          demoData
+            .riegoAnalytics;
+
+
+        renderSystemCard(
+          "potable",
+          dashboardData
+            .potableDevice,
+          dashboardData
+            .potableAnalytics
+        );
+
+
+        renderSystemCard(
+          "riego",
+          dashboardData
+            .riegoDevice,
+          dashboardData
+            .riegoAnalytics
+        );
+
+
+        renderTotal();
+
+        renderDailyChart();
+
+        renderMonthlyChart();
+
+        renderAlerts();
+
+
+        return;
+
+      }
+
+
+      /* --------------------------------------------------------------
+         MODO REAL:
+         esta parte queda conservada para futura conexión al app.py.
+         -------------------------------------------------------------- */
+
       const response =
         await fetch(
           "/api/devices"
@@ -3690,10 +4054,6 @@
         .riegoAnalytics =
         riegoAnalytics;
 
-
-      /* --------------------------------------------------------------
-         ACTUALIZAR TARJETAS
-         -------------------------------------------------------------- */
 
       renderSystemCard(
         "potable",
